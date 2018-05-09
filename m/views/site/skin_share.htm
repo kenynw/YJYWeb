@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>来自颜究院的肤质测试</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="MobileOptimized" content="320">
+        <meta  name="applicable-device" content="mobile">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>h5/css/my_skin.css">
+    </head>
+    <body>
+        <header>
+            <div class="head_pic">
+                <img src="<{$userInfo['img']}>" alt="">
+            </div>
+            <p><{$userInfo['username']}></p>
+        </header>
+        <main>
+            <p class="test_title">肤质测试界的16型人格</p>
+            <div>
+                <p class="test_title2">我的肤质</p>
+            </div>
+            <div class="four_block clearfloat">
+                <!--<{foreach key=key from=$skinInfo item=skin }>-->
+                <div class="word word<{$skin['num']}>">
+                    <div><{$skin['letter']}></div>
+                    <p><{$skin['name']}></p>
+                </div>
+                <!--<{/foreach}>-->
+            </div>
+            <div class="effect clearfloat">
+                <div class="e_line1">
+                    <!--<{foreach key=key from=$skinInfo item=skin }>-->
+                    <div class="e_content">
+                        <a href="javascript::void(0)">
+                            <img src="<{$GLOBALS['static_path']}>h5/images/skin_share/effect<{$skin['num']}>.png" alt="用法1">
+                            <h3><{$skin['name']}></h3>
+                            <p><{$skin['unscramble']}></p>
+                        </a>
+                    </div>
+                    <!--<{/foreach}>-->
+                </div>
+            </div>
+        </main>
+        <footer class="clearfloat">
+            <div class="logo"></div>
+            <div class="download">
+                <h2>颜究院</h2>
+                <span>获得同款肤质测试</span>
+            </div>
+            <div class="down_bt">
+                <a href="<{$GLOBALS['mfrontendUrl']}>site/download-guide" class="bt">马上下载</a>
+            </div>
+        </footer>
+    </body>
+</html>
+<{$GLOBALS['statisticalCode']}>
+<script src="<{$GLOBALS['static_path']}>h5/js/script.min.js"></script>
+<script>
+    var page_width = document.body.clientWidth;
+    var font = page_width / 10;
+    console.log(font);
+    $("html").css({ "font-size": font +"px" });
+
+
+    $(window).resize(function(){
+        page_width = document.body.clientWidth;
+        font = page_width / 10;
+
+        $("html").css({ "font-size":font +"px"});
+        
+    });  
+</script>
+

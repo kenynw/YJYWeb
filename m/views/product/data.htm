@@ -1,0 +1,28 @@
+
+<!-- <{if $productList['list']}> -->
+    <!--<{foreach key=key from=$productList['list'] item=product }>-->
+    <li class="boxsize">
+        <a href="/product/details?id=<{$product['id']}>" title="<{$product['product_name']}>">
+            <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$product['product_name']}>">
+            <p class="ell"><{$product['product_name']}></p>
+            <span class="ell">参考价：
+                <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                暂无报价
+                <!--<{else}>-->
+                ¥<{$product['price']}>／<{$product['form']}>
+                <!--<{/if}>-->
+            </span>
+            <div class="star">
+                <!--<{for $foo=1 to $product['star']}>-->
+                <i class="icon ico-star"></i>
+                <!--<{/for}>-->
+                <!--<{for $foo=1 to (5-$product['star']) }>-->
+                <i class="icon"></i>
+                <!--<{/for}>-->
+            </div>
+        </a>
+    </li>
+    <!--<{/foreach}>-->
+<!--<{/if}> -->
+
+

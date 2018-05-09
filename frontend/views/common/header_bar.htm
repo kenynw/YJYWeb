@@ -1,0 +1,83 @@
+<!-- 头部 -->
+<div class='header <{if $this->context->id == "article" && $this->context->action->id == "index"}>header-article<{/if}>'>
+    <div class="main">
+        <a href="/" class="logo" title="logo"><img src="<{$GLOBALS['static_path']}>pc/images/logo.png" height="64" width="155" alt="专业护肤品成分查询，护肤品推荐网站-颜究院" title="颜究院提供护肤品成分查询、肤质测试、护肤品推荐"></a>
+
+        <{if $GLOBALS['controller'] != "site"}>
+            <{if $GLOBALS['controller'] == "article"}>
+                <div class="article-searct-box clearfix">
+                    <form id="searchForm" name="keywords" method="get" action="<{Yii::$app->urlManager->createUrl('article/index')}>">
+                        <input autocomplete="off" type="text" value="<{if isset($smarty.get.keyword) }><{$smarty.get.keyword}><{/if}>"  placeholder="搜索你感兴趣的文章" name="keyword" id="keyword" data-type="article-search" class="search_input">
+                        <button class="search-btn"><i class="icon-ss-btn-2"></i></button>
+                    </form>
+                    <div class="hot-link-box">
+                        <{if $GLOBALS['articleWord']}>
+                        <{foreach key=key from=$GLOBALS['articleWord'] item=word }>
+                            <a href="<{Yii::$app->urlManager->createUrl(['article/index','hotId'=>$word['tagid'] ])}>" target="_blank" rel="nofollow"><{$word['tagname']}></a>
+                        <{/foreach}>
+                        <{/if}>
+                    </div>
+
+                    <div class="guess-box">
+                        <div class="guess-box-con border-none">
+                        </div>
+                    </div>
+                </div>
+            <{else if $GLOBALS['controller'] == "product" && $this->context->action->id == "index" }>
+
+            <{else}>
+                <div class="article-searct-box clearfix">
+                    <form id="searchForm" name="keywords" method="get" action="<{Yii::$app->urlManager->createUrl('product/index')}>">
+                        <input autocomplete="off" type="text" value="<{if isset($smarty.get.keyword) }><{$smarty.get.keyword}><{/if}>" placeholder="请输入产品名／功效"  name="keyword" id="keyword" data-type="product-search" class="search_input">
+                        <button class="search-btn"><i class="icon-ss-btn-2"></i></button>
+                    </form>
+                    <div class="hot-link-box">
+                        <{if $GLOBALS['productWord']}>
+                        <{foreach key=key from=$GLOBALS['productWord'] item=word }>
+                            <a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$word ])}>" target="_blank" rel="nofollow"><{$word}></a>
+                        <{/foreach}>
+                        <{/if}>
+                    </div>
+
+                    <div class="guess-index-box guess-index-box-top pad-no">
+                    </div>
+                </div>
+            <{/if}>
+        <{/if}>
+
+        <ul class=" clearfix">
+            <li>
+                <a class="<{if $this->context->id == 'site' && $this->context->action->id == 'index'}>on<{/if}>" href="/" title="首页" target="_self">
+                    <span class="home">首页</span>
+                </a>
+            </li>
+            <li>
+                <a class="<{if $this->context->id == 'product' && $this->context->action->id == 'index'}>on<{/if}>" href="<{Yii::$app->urlManager->createUrl('product/index')}>" title="产品库" target="_self">
+                    <span class="cp">产品库</span>
+                </a>
+            </li>
+            <li>
+                <a class="<{if $this->context->id == 'article' && $this->context->action->id == 'index'}>on<{/if}>" href="<{Yii::$app->urlManager->createUrl('article/index')}>" title="文章库" target="_self">
+                    <span class="wz">文章库</span>
+                </a>
+            </li>
+            <li>
+                <a class="<{if $this->context->id == 'brand' && $this->context->action->id == 'index'}>on<{/if}>" href="<{Yii::$app->urlManager->createUrl('brand/index')}>" title="品牌库" target="_self">
+                    <span class="pp">品牌库</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="on" href="<{Yii::$app->urlManager->createUrl('site/download')}>" title="下载APP" target="_blank">
+                    <span class="dl">下载APP</span>
+                </a>
+            </li>
+
+
+            <{if ($GLOBALS['controller'] == "site" && $this->context->action->id == "index") || ($GLOBALS['controller'] == "product" && $this->context->action->id == "index") || ($GLOBALS['controller'] == "site" && $this->context->action->id == "download")}>
+
+            <{/if}>
+
+        </ul>
+    </div>
+</div>

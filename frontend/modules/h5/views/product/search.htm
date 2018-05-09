@@ -1,0 +1,86 @@
+<{include file='../common/header.htm'}>
+
+<div class="head-search boxsize">
+    <div class="search-box boxsize">
+        <i class="icon ico-ss"></i>
+        <input type="text" name="keyword" value="<{if isset($smarty.get.keyword)}><{$smarty.get.keyword}><{/if}>" placeholder="请输入产品名／功效">
+        <i class="icon ico-close"></i>
+    </div>
+</div>
+
+<!-- <{if $productList['list']}> -->
+<div class="jguo boxsize">共有<{count($productList['list'])}>个搜索结果</div>
+<ul class="tj-box">
+    <!--<{foreach key=key from=$productList['list'] item=product }>-->
+    <li class="boxsize">
+        <a href="/h5/product/details?id=<{$product['id']}>" title="<{$product['product_name']}>">
+            <img src="<{$GLOBALS['uploadsUrl']}><{$product['product_img']}>" alt="<{$product['product_name']}>">
+            <p class="ell"><{$product['product_name']}></p>
+            <span class="ell">参考价：
+                <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                暂无报价
+                <!--<{else}>-->
+                ¥<{$product['price']}>／<{$product['form']}>
+                <!--<{/if}>-->
+            </span>
+            <div class="star">
+                <!--<{for $foo=1 to $product['star']}>-->
+                <i class="icon ico-star"></i>
+                <!--<{/for}>-->
+            </div>
+        </a>
+    </li>
+    <!--<{/foreach}>-->
+</ul>
+
+<!--<{else}>-->
+<div class="null-jg">
+    <img src="<{$GLOBALS['static_path']}>h5/images/null.png" alt="">
+    <p>不好意思，找不到对应产品信息哦</p>
+</div>
+
+<!-- <{if $recommendList['list']}> -->
+<div class="wntj">
+    <p>为你推荐以下产品：</p>
+</div>
+<ul class="tj-box">
+    <!--<{foreach key=key from=$recommendList['list'] item=product }>-->
+    <li class="boxsize">
+        <a href="/h5/product/details?id=<{$product['id']}>" title="<{$product['product_name']}>">
+            <img src="<{$GLOBALS['uploadsUrl']}><{$product['product_img']}>" alt="<{$product['product_name']}>">
+            <p class="ell"><{$product['product_name']}></p>
+            <span class="ell">参考价：
+                <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                暂无报价
+                <!--<{else}>-->
+                ¥<{$product['price']}>／<{$product['form']}>
+                <!--<{/if}>-->
+            </span>
+            <div class="star">
+                <!--<{for $foo=1 to $product['star']}>-->
+                <i class="icon ico-star"></i>
+                <!--<{/for}>-->
+            </div>
+        </a>
+    </li>
+    <!--<{/foreach}>-->
+</ul>
+<!--<{/if}>-->
+<!--<{/if}> -->
+
+<{include file='../common/footer.htm'}>
+
+<script>
+
+    var titles = "<{if isset($smarty.get.cateName)}><{$smarty.get.cateName}><{else}>颜究院<{/if}>";
+    document.title = titles;
+
+    document.onkeydown=function(event){
+        e = event ? event :(window.event ? window.event : null);
+        if(e.keyCode==13){
+            var keyword = $("input[name='keyword']").val();
+            url = "<{$GLOBALS['frontendUrl']}>" + "h5/product/search?keyword=" + keyword;
+            window.location.href= url;
+        }
+    }
+</script>

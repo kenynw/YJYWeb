@@ -1,0 +1,88 @@
+<{include file='common/header.htm'}>
+<{include file='common/header_bar.htm'}>
+
+<!-- 面包屑 -->
+<div class="crumbs">
+    <div class="main">
+        <a href="<{Yii::$app->urlManager->createUrl('site/index')}>">首页</a><span class="gt">&gt;</span><span>品牌库</span>
+    </div>
+</div>
+<!-- 主要内容 -->
+<div class="brand-main">
+    <div class="main  clearfix">
+        <!-- 左侧内容 -->
+        <div class="brand-left">
+            <div class="brand-menu">
+                <a href="<{Yii::$app->urlManager->createUrl('brand/index')}>" class="<{if !isset($smarty.get.cateId) || $smarty.get.cateId eq '' || $smarty.get.cateId eq '0'}>cur<{/if}>"><i></i>所有品牌</a>
+                <{if $brandCate }>
+                <{foreach key=key from=$brandCate item=brand }>
+                    <a href="<{Yii::$app->urlManager->createUrl(['brand/index','cateId'=>$brand['id'] ])}>" class="<{if isset($smarty.get.cateId) && ($smarty.get.cateId == $brand['id'])}>cur<{/if}>"><i></i><{$brand['name']}>品牌</a>
+                <{/foreach}>
+                <{/if}>
+            </div>
+            <div class="brand-list">
+                <ul class="clearfix">
+                    <{if $brandList['list'] }>
+                    <{foreach key=key from=$brandList['list']  item=brand }>
+                        <li>
+                            <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brand['id'] ])}>" class="pic" target="_blank" title="<{if $brand['name']}><{$brand['name']}><{else}><{$brand['ename']}><{/if}>">
+                                <img class="light" src="<{$GLOBALS['uploadsUrl']}><{$brand['img']}>" alt="<{if $brand['name']}><{stripslashes($brand['name'])}><{else}><{stripslashes($brand['ename'])}><{/if}>"/>
+                            </a>
+                            <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brand['id'] ])}>" class="txt ell" target="_blank" title="<{if $brand['name']}><{$brand['name']}><{else}><{$brand['ename']}><{/if}>"><{if $brand['name']}><{$brand['name']}><{else}><{$brand['ename']}><{/if}></a>
+                        </li>
+                    <{/foreach}>
+                    <{/if}>
+                </ul>
+            </div>
+            <!-- 分页 -->
+            <div class="pages-item">
+                <ul class="pagination">
+
+                    <{if isset($smarty.get.cateId)}>
+                        <{if $brandList['pageCount'] > 1 }>
+                            <li class="prev disabled"><a href="<{if $brandList['page']-1 != 0}><{Yii::$app->urlManager->createUrl(['brand/index','cateId'=>$smarty.get.cateId,'page'=>$brandList['page']-1 ])}><{else}>javascript:void(0)<{/if}>">上一页</a></li>
+                            <{for $foo=$brandList['min_page'] to $brandList['max_page'] }>
+                                <li class="<{if $brandList['page'] == $foo }>active<{/if}>"><a href="<{Yii::$app->urlManager->createUrl(['brand/index','cateId'=>$smarty.get.cateId,'page'=>$foo ])}>" target=""><{$foo}></a></li>
+                            <{/for}>
+                            <li class="next"><a href="<{if $brandList['page']  < $brandList['pageCount']}><{Yii::$app->urlManager->createUrl(['brand/index','cateId'=>$smarty.get.cateId,'page'=>$brandList['page']+1 ])}><{else}>javascript:void(0)<{/if}>">下一页</a></li>
+                            <li class="next"><a href="<{Yii::$app->urlManager->createUrl(['brand/index','cateId'=>$smarty.get.cateId,'page'=>$brandList['pageCount'] ])}>">末页</a></li>
+                        <{/if}>
+                    <{else }>
+                        <{if $brandList['pageCount'] > 1 }>
+                            <li class="prev disabled"><a href="<{if $brandList['page']-1 != 0}><{Yii::$app->urlManager->createUrl(['brand/index','page'=>$brandList['page']-1 ])}><{else}>javascript:void(0)<{/if}>">上一页</a></li>
+                            <{for $foo=$brandList['min_page'] to $brandList['max_page'] }>
+                                <li class="<{if $brandList['page'] == $foo }>active<{/if}>"><a href="<{Yii::$app->urlManager->createUrl(['brand/index','page'=>$foo ])}>" target=""><{$foo}></a></li>
+                            <{/for}>
+                            <li class="next"><a href="<{if $brandList['page']  < $brandList['pageCount']}><{Yii::$app->urlManager->createUrl(['brand/index','page'=>$brandList['page']+1 ])}><{else}>javascript:void(0)<{/if}>">下一页</a></li>
+                            <li class="next"><a href="<{Yii::$app->urlManager->createUrl(['brand/index','page'=>$brandList['pageCount'] ])}>">末页</a></li>
+                        <{/if}>
+                    <{/if}>
+                </ul>
+            </div>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['main1'] class = "left-ad" name = "main1"}>
+        </div>
+
+
+        <!-- 左侧推荐 -->
+        <div class="brand-right">
+            <!-- 推荐产品 -->
+            <{include file='../common/recommenb_product.htm'}>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['left1'] class = "recommend-ad" name = "left1"}>
+
+            <!-- 推荐文章 -->
+            <{include file='../common/recommenb_article.htm'}>
+
+        </div>
+    </div>
+</div>
+
+
+<{include file='common/footer.htm'}>
+
+<script>
+
+</script>

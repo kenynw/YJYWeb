@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><{$huoDongdInfo['name']}></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <!-- DNS预解析 常用于图片URL 静态资源URL -->
+    <link rel="dns-prefetch" href="//">
+    <link rel="stylesheet" type="text/css" href="<{$static_path}>css/style.min.css"/>
+</head>
+<body>
+<div class="gifbox">
+    <div class="gifbg"></div>
+    <div class="top-img"></div>
+    <div class="s-prize">
+        <img src="<{$static_path}>images/gifp.gif" alt="" data-percent="<{$ratio}>" id="zg-percent" class="gif-progress">
+        <div class="percent">
+            <p>已助攻</p>
+            <p class="d-per"><{$ratio}>%</p>
+        </div>
+    </div>
+    <div class="prizebox">
+      <div class="mfs-bq"></div>
+    </div>
+</div>
+<div class="get-info s-get-info">
+       <a href="javascript:void(0)" class="get-btn <{if $ratio >= 100}>completed<{elseif $ratio < 100 && $isCheckAssists}>scale<{/if}>" id ="<{if $isCheckAssists}>give-help<{/if}>">
+            <{if $ratio >= 100}>助攻人数已满<{elseif $ratio < 100 && !$isCheckAssists}>已助攻<{else}>点击助攻<{/if}>
+       </a>
+       <p>到颜究院参加活动，你也可以获得该奖品</p>
+</div>
+<div class="opacity-box mt-100">
+   <span class="jiao top-r"></span>
+   <span class="jiao bottom-l"></span>
+   <!-- <{if !empty($invitationList)}> -->
+        <h2 class="zg-h2" style="">已有<i id="zg-num"><{COUNT($invitationList)}></i>人助攻</h2>
+   <!-- <{else}> -->
+        <h2 class="zg-h2" style="display: none">已有<i id="zg-num"><{COUNT($invitationList)}></i>人助攻</h2>
+   <!-- <{/if}> -->
+    <div class="scroll-box" id="zg-list">
+        <div class="ulbox">
+           <!-- <{if empty($invitationList)}> -->
+           <div class="empty">还没有好友理你，偷偷告诉你，<br>分享出去效果hin惊人</div>
+           <!-- <{/if}> -->
+           <ul>
+           <!--<{foreach key=key from=$invitationList item=invitation }>-->
+               <li><img src="<{$invitation['img']}>" alt=""><span class="ell"><{$invitation['username']}>&#12288;已助攻啦~</span></li>
+            <!--<{/foreach}>-->
+           </ul>
+            <ul>
+            <!--<{foreach key=key from=$invitationList item=invitation }>-->
+               <li><img src="<{$invitation['img']}>" alt=""><span class="ell"><{$invitation['username']}>&#12288;已助攻啦~</span></li>
+            <!--<{/foreach}>-->
+           </ul>
+        </div>
+    </div>
+</div>
+<!-- 活动规则、奖励说明 -->
+<div class="s-rule-tab">
+    <span class="active"><i></i>&nbsp;活动规则&nbsp;<i class="r"></i></span>
+    <span><i></i>&nbsp;奖励说明&nbsp;<i class="r"></i></span>
+</div>
+<div class="opacity-box">
+    <span class="jiao top-l"></span>
+    <span class="jiao bottom-r"></span>
+    <div class="text-box active">
+        <p><i>1</i>一个用户（收货地址&手机号）限领一份奖品</p>
+        <p><i>2</i>活动按期进行，本期限量100个。</p>
+        <p><i>3</i>呼叫好友帮你助攻，直到助攻数达到100%，即可免费获取本期奖品，奖品有限，先到先得！</p>
+        <p><i>4</i>活动时间：2017.8.2-2017.8.8（关注“护肤颜究院”提前预知下期活动时间哦）</p>
+        <p><i>5</i>活动结束后统一发放奖品。请中奖者务必填写收货信息（即领奖登记），未填写者视为自动放弃。</p>
+        <p><i>6</i>本活动所有解释权归颜究院所有。</p>
+    </div>
+    <div class="text-box">
+        <p><i>1</i>本期奖品为多芬洁面慕丝洗面奶，160mL</p>
+        <p><i>2</i>限量100支，先到先得！</p>
+        <br>
+        <p class="ps">ps：每期活动都会放出不同的礼品，蹲点or比手速，我们都不管，只要你先满足条件，即可免费领取N种美物哦。</p>
+    </div>
+</div>
+<a href="http://m.yjyapp.com/site/download-guide" title="" class="into-yjy"><i></i></a>
+<!-- 助力成功弹窗 -->
+<div class="guang zlsuc-dia">
+    <div class="dialog">
+        <i class="dia-icon"></i>
+        <h2>哇耶！助力成功啦！<br>没有你我可怎么办...</h2>
+        <a href="http://m.yjyapp.com/site/download-guide" class="btn">下载app<i>0元</i>拿奖品&gt;</a>
+   </div>
+</div>
+<!-- 遮罩 -->
+<div class="shade"></div>
+</body>
+<script src="<{$static_path}>js/lib/jquery-1.10.1.min.js"></script>
+<script src="<{$static_path}>js/pullnew.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    var userInfo = {"username":"<{$userInfo['username']}>","img":"<{$userInfo['img']}>"};
+    pull_new.share_init();
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: "<{Yii::$app->params['OfficialAccounts']['APPID']}>",
+        timestamp: "<{$jsApi['timestamp']}>",//这个一定要与上面的php代码里的一样。
+        nonceStr: '<{$jsApi['noncestr']}>',//这个一定要与上面的php代码里的一样。
+        signature: '<{$jsApi['signature']}>',
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+    wx.ready(function(){
+        wx.onMenuShareTimeline({
+            title: '你的好友向你发来一份礼品！', // 分享标题
+            imgUrl: '<{$static_path}>images/share.jpg', // 分享图标
+            desc: '考验友谊的时刻来了！速点！帮我变美！',   //分享描述
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+        //发送给好友
+        wx.onMenuShareAppMessage({
+            title: '你的好友向你发来一份礼品！', // 分享标题
+            desc: '考验友谊的时刻来了！速点！帮我变美！',   //分享描述
+            imgUrl: '<{$static_path}>images/share.jpg', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+    }); 
+</script>
+<{$statisticalCode}>
+</html>

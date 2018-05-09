@@ -1,0 +1,216 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+a{
+    -webkit-tap-highlight-color: transparent;
+}
+body{
+    background-color: #F4F4F4;
+    padding-bottom: 2.0575rem;
+}
+/*头部*/
+header{
+    width: 100%;
+    height: 3.67rem;
+    text-align: center;
+    padding-top: 0.77rem;
+    background-image: url(../images/skin_share/header.jpg);
+    background-size: 100% 100%;
+}
+.head_pic{
+    width: 1.71rem;
+    height: 1.71rem;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+.head_pic img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+header p{
+    margin-top: 0.3125rem;
+    font-size: 0.46875rem;
+    font-family: "PingFang";
+    color: rgb(34, 34, 34);
+}
+/*主模块*/
+main{
+    width: 9.3593rem;
+    margin: 0 auto;
+    border-radius: 0.25rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 0.1875rem 0px rgba(0, 0, 0, 0.04);
+}
+.test_title{
+    font-size: 0.40625rem;
+    font-family: "PingFang";
+    color: rgb(102, 102, 102);
+    padding-top: 0.625rem;
+    text-align: center;
+}
+.test_title2{
+    font-size: 0.46875rem;
+    font-family: "PingFang";
+    color: rgb(34, 34, 34);
+    line-height: 1.067;
+    margin-top: 0.4rem;
+    text-align: center;
+}
+/*四块英文*/
+.four_block{
+    position: relative;
+    height: 2.4375rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.8593rem;
+}
+/*浮动*/
+.four_block .word{
+    position: absolute;
+    float: left;
+}
+.four_block .word1{
+    left: 0.546875rem;
+}
+.four_block .word2{
+    left: 2.796875rem;
+}
+.four_block .word3{
+    left: 5.046875rem;
+}
+.four_block .word4{
+    left: 7.28125rem;
+}
+.logo,.download,.down_bt{
+    float: left;
+}
+.clearfloat:after {
+    content: ".";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    line-height: 0;
+    clear: both
+}
+.clearfloat {
+    display: block
+}
+.four_block .word div{
+    font-size: 0.5625rem;
+    font-family: "Microsoft YaHei";
+    font-weight: bold;
+    height: 1.5625rem;
+    width: 1.5625rem;
+    line-height: 1.5625rem;
+    text-align: center;
+    color: rgb(50, 218, 195);
+    border-style: solid;
+    border: 1px solid rgb(50, 218, 195);
+    border-radius: 0.25rem;
+}
+.four_block .word p{
+    font-size: 0.4375rem;
+    font-family: "PingFangSC";
+    color: rgb(153, 153, 153);
+    line-height: 1.143;
+    text-align: center;
+    margin-top: 0.3125rem;
+}
+/*功能区*/
+.effect{
+    text-align: center;
+}
+.e_line1{
+    justify-content: space-around;
+}
+.e_line1 div:nth-of-type(1){
+    border-right: 2.3px dashed #F5F5F5;
+}
+.e_line1:nth-of-type(2) div{
+    border-top: 2.3px dashed #F5F5F5;
+    padding-top: 0.26rem;
+}
+.effect h3{
+    font-size: 0.46875rem;
+    font-weight: normal;
+    font-family: "PingFang";
+    color: rgb(34, 34, 34);
+}
+.effect p{
+    font-size: 0.375rem;
+    text-align: left;
+    font-family: "PingFang";
+    color: rgb(153, 153, 153);
+}
+.e_content{
+    float: left;
+    margin-bottom: 0.26rem;
+    width: 50%;
+}
+.e_content p{
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    display: box;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* 几行隐藏 */
+    -webkit-line-clamp: 5;
+    line-clamp:5;
+    margin: 0.35rem 0;
+    padding: 0 0.3125rem;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 2.03125rem;
+    background-color: #E1F6F3;
+    box-shadow: 0px -2px 6px 0px rgba(0, 0, 0, 0.05);
+}
+footer .logo{
+    width: 1.46875rem;
+    height: 1.46875rem;
+    background-image: url('../images/logo/120.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0.25rem;
+}
+footer .download{
+    margin-top: 0.4rem;
+}
+footer .download h2{
+    font-size: 0.46875rem;
+    font-family: "PingFang";
+    font-weight: 100;
+    color: rgb(34, 34, 34);
+    margin-bottom: 0.12rem;
+}
+footer .download span{
+    font-size: 0.375rem;
+    font-family: "PingFang";
+    color: rgb(102, 102, 102);
+}
+footer .bt{
+    display: block;
+    width: 3.28rem;
+    height: 1rem;
+    line-height: 1rem;
+    margin-top: 0.5rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    font-size: 0.46875rem;
+    font-family: "PingFang";
+    color: rgb(255, 255, 255);
+    margin-left: 1.25rem;
+    background-image: -moz-linear-gradient( 90deg, rgb(50,218,195) 0%, rgb(56,233,209) 45%, rgb(53,236,211) 100%);
+    background-image: -webkit-linear-gradient( 90deg, rgb(50,218,195) 0%, rgb(56,233,209) 45%, rgb(53,236,211) 100%);
+    background-image: -ms-linear-gradient( 90deg, rgb(50,218,195) 0%, rgb(56,233,209) 45%, rgb(53,236,211) 100%);
+}

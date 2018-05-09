@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title><{$topicInfo['title']}></title>
+    <meta name="keywords" content="<{$topicInfo['title']}>"/>
+    <meta name="description" content="<{$topicInfo['title']}>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/topic/css/style1.min.css"/>
+</head>
+<body class="hotTopic">
+<div class="banner" style="background-image: url(<{$topicInfo['picture']}>);">
+    <!--<img src="http://placeholder.qiniudn.com/750x980"/>-->
+</div>
+<div class="txtCont">
+    <p class="con">
+        <span>
+            <{$topicInfo['desc']}>
+        </span>
+        <i class="icon-open"></i>
+    </p>
+</div>
+<div class="tab-box">
+    <div class="tab" id="j-tab">
+        <span class="cur">最新<i></i></span>
+        <span>最热<i></i></span>
+    </div>
+    <div class="tab-content new-cont active">
+        <ul class="newContUl clearfix waterfall" id="waterfall">
+        </ul>
+    </div>
+</div>
+<div class="bottom"></div>
+<a href="/site/download-guide" class="taolun"><i></i>参与讨论</a>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>app/topic/js/js.min.js"></script>
+<script type="text/javascript">
+    //tab 吸顶
+    var tabTop = $("#j-tab").offset().top;
+    $(window).scroll(function() {
+        //    var marTop=$("#j-tab").offset().top-$(window).scrollTop();
+        if($(window).scrollTop() > tabTop) {
+          $("#j-tab").addClass('fixTop');
+          //      console.log('add')
+        } else {
+          //      console.log('remove')
+          $("#j-tab").removeClass('fixTop');
+        }
+    })
+    //网络请求
+    var getOpt = function(select) {
+        return {
+            //获取动态资源函数,必须返回一个砖块元素集合,传入参数为加载的次数
+            getResource: function(index, render) { //index为已加载次数,render为渲染接口函数,接受一个dom集合或jquery对象作为参数。通过ajax等异步方法得到的数据可以传入该接口进行渲染，如 render(elem)
+                // console.log('加载');
+                var html = '';
+                var pageIndex = $.waterfall.load_index;
+                var timestamp = Date.parse(new Date());  
+                timestamp = timestamp / 1000; 
+                // console.log(pageIndex);
+                if(select == 1) {
+                    //最热
+                    var url = "<{Yii::$app->params['apiPathUrl']}>/api/index?action=postList&id=<{$topicInfo['id']}>&orderBy=2&pageSize=10&page=" + pageIndex + '&time='+ timestamp +'&version=123&from=H5';
+                } else {
+                    //最新
+                    var url = "<{Yii::$app->params['apiPathUrl']}>/api/index?action=postList&id=<{$topicInfo['id']}>&orderBy=1&pageSize=10&page=" + pageIndex  + '&time='+ timestamp +'&version=123&from=H5';
+                }
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: '',
+                    dataType: "jsonp",
+                    success: function(res){
+                        res.msg.forEach(function(data) {
+                            html += '<li class="cell"><a href="/app/post-info?id='+ data.id +'"><img class="img" src="' + data.picture + '"/><div class="pCont"><p class="ell-thr">' + data.content + '</p></div><div class="userCont clearfix"><img class="userImg" src="' + data.user.user_img + '"/><span class="userName">' + data.user.username + '</span><span class="right"><i></i><span class="zanNum">' + (data.like_num ? data.like_num : "" )+ '</span></span></div></a></li>';
+                        })
+                        render($(html));
+                    }
+                });
+            },
+            auto_imgHeight: true,
+            insert_type: 2
+        }
+    }
+    $('#waterfall').waterfall(getOpt());
+</script>
+</body>
+</html>

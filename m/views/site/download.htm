@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>颜究院APP下载_颜究院APP官方正式版下载-颜究院</title>
+    <meta name="description" content="颜究院是一款专业的化妆品查询APP，化妆品成分、批号一查便知。APP汇聚海量的美妆护肤知识，权威的肤质测试，专业的功课模板，帮你轻松拔草种草。颜究院，可以随身携带的护肤神器！">
+    <meta name="keywords" content="颜究院APP,颜究院APP下载,颜究院APP官方下载,颜究院APP正式版">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <!-- DNS预解析 常用于图片URL 静态资源URL -->
+    <link rel="dns-prefetch" href="//">
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>h5/v103/css/download.min.css">
+</head>
+<body class="fullpage">
+<div id="fullpage">
+    <div class="section section01 active">
+        <div class="padbox">
+            <a href="javascript:void(0);" class="logo">颜究院</a>
+        </div>
+        <h1>颜究院—解决你的护肤问题</h1>
+        <img src="<{$GLOBALS['static_path']}>h5/v103/images/download-new/img05.png" alt="" class="img01">
+        <a href="<{$url}>" class="dl-btn">立即下载，开始变美</a>
+        <i class="page-top"></i>
+    </div>
+    <div class="section section02">
+        <div class="padbox2">
+            <h1>查询产品成分，避开爆痘、过敏的源头</h1>
+        </div>
+        <div class="img01"></div>
+        <div class="img02"></div>
+        <i class="page-top"></i>
+    </div>
+    <div class="section section03">
+        <div class="padbox2">
+            <h1>在线批号查询，记录保质期、到期提醒</h1>
+        </div>
+        <div class="img01"></div>
+        <div class="img02"></div>
+        <i class="page-top"></i>
+    </div>
+    <div class="section section04">
+        <div class="padbox2">
+            <h1>护肤功课模板，一键生成护肤品功课</h1>
+        </div>
+        <div class="img01"></div>
+        <div class="img02"></div>
+        <i class="page-top"></i>
+    </div>
+    <div class="section section05">
+        <div class="padbox2">
+            <h1>肤质测试，精准辨别肤质，快准狠</h1>
+        </div>
+        <div class="img01"></div>
+        <div class="img02"></div>
+        <a href="<{$url}>" class="dlbtn"></a>
+        <i class="page-top"></i>
+    </div>
+</div>
+
+<div class="shade">
+    <img src="<{$GLOBALS['static_path']}>h5/v103/images/download-new/shade.png" alt="">
+</div>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>h5/v103/js/page.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    common.download();
+    function isWeiXin(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    $(".dl-btn").on("click",function(){
+        var str = "<{$GLOBALS['equipment']}>";
+
+        //微信浏览器打开
+        if(isWeiXin() && str == 'Android'){
+            $(".shade").show();
+        }
+    });
+    $(".shade").on("click",function(){
+        $(".shade").hide();
+    });
+
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: "<{$GLOBALS['jsApi']['APPID'] }>",
+        timestamp: "<{$GLOBALS['jsApi']['timestamp'] }>",//这个一定要与上面的php代码里的一样。
+        nonceStr: "<{$GLOBALS['jsApi']['noncestr'] }>",//这个一定要与上面的php代码里的一样。
+        signature: "<{$GLOBALS['jsApi']['signature'] }>",
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+    wx.ready(function(){
+        var title = "<{$GLOBALS['OfficialAccounts']['share']['title'] }>",   // 分享标题
+            desc = "<{$GLOBALS['OfficialAccounts']['share']['desc'] }>",   //分享描述
+            imgUrl = "<{$GLOBALS['OfficialAccounts']['share']['imgUrl'] }>"; // 分享图标
+
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            success: function () {},
+            cancel: function () {}
+        });
+
+        //发送给好友
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {},
+            cancel: function () {}
+        });
+    });
+</script>
+<{$GLOBALS['statisticalCode']}>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<{include file='../common/header.htm'}>
+<{include file='../common/header_bar.htm'}>
+
+<!-- 面包屑 -->
+<div class="crumbs">
+	<div class="main">
+		<a href="/">首页</a>
+		<span class="gt">&gt;</span>
+		<span>产品库</span>
+	</div>
+</div>
+<div class="product-content-box">
+	<div class="product-list-box clearfix">
+		<div class="product-list-le">
+			<div class="product-searct-box clearfix">
+				<form id="searchForm" name="keywords" method="get" action="">
+					<input autocomplete="off" type="text" value="<{if isset($param.search) }><{$param.search}><{else}><{/if}>" placeholder="请输入产品名/功效" name="keyword" id="keyword" data-type="product-search" class="search_input">
+					<button class="search-btn">搜索</button>
+					<i class="icon-ss-btn"></i>
+				</form>
+				<div class="hot-link-box">
+					<{if $GLOBALS['productWord']}>
+					<{foreach key=key from=$GLOBALS['productWord'] item=word }>
+						<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$word ])}>" target="" rel="nofollow"><{$word}></a>
+					<{/foreach}>
+					<{/if}>
+				</div>
+
+				<div class="guess-index-box pad-no guess-index-box-pro">
+				</div>
+			</div>
+
+			<!--列表搜索条件-->
+			<{if isset($smarty.get.brandId)}><{$brandId = $smarty.get.brandId}><{else}><{$brandId ='0'}><{/if}>
+			<{if isset($smarty.get.cateId)}><{$cateId = $smarty.get.cateId}><{else}><{$cateId ='0'}><{/if}>
+			<{if isset($smarty.get.effectId)}><{$effectId = $smarty.get.effectId}><{else}><{$effectId ='0'}><{/if}>
+			<{if isset($smarty.get.star)}><{$star = $smarty.get.star}><{else}><{$star ='0'}><{/if}>
+			<{if isset($smarty.get.page)}><{$page = $smarty.get.page}><{else}><{$page ='1'}><{/if}>
+
+			<div class="groups-box">
+				<table class="groups-table">
+					<tbody>
+
+					<{if empty($check) }>
+						<tr class="brand-test">
+							<td class="item-tit">
+								品牌
+							</td>
+							<td class="js-res-no">
+								<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => '0','cateId' => $cateId,'effectId' => $effectId,'star' => $star,'page' => 1])}>">不限</a>
+							</td>
+							<td class="groups-list">
+								<ul class="clearfix">
+									<{if $brandList}>
+									<{foreach key=key from=$brandList item=brand }>
+										<li>
+											<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brand['id'],'cateId' => $cateId,'effectId' => $effectId,'star' => $star,'page' => 1])}>"
+											   target="" class="<{if isset($smarty.get.brandId) && $smarty.get.brandId == $brand['id']}>on<{/if}>">
+												<{if $brand['name']}><{stripslashes($brand['name'])}><{/if}>
+												<{if $brand['name'] && $brand['ename'] }>(<{stripslashes($brand['ename'])}>)<{else if $brand['name'] == '' && $brand['ename']}><{stripslashes($brand['ename'])}><{/if}>
+											</a>
+										</li>
+									<{/foreach}>
+									<{/if}>
+								</ul>
+							</td>
+							<td class="js-more">
+								<span>更多</span>
+								<i class="icon-jt-down"></i>
+							</td>
+						</tr>
+					<{/if}>
+
+					<tr>
+						<td class="item-tit">
+							分类
+						</td>
+						<td class="js-res-no">
+							<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => '0','effectId' => $effectId,'star' => $star,'page' => 1])}>">不限</a>
+						</td>
+						<td class="groups-list">
+							<ul class="clearfix">
+								<{if $productCate}>
+								<{foreach key=key from=$productCate item=cate }>
+									<li><a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => $cate['id'],'effectId' => $effectId,'star' => $star,'page' => 1])}>"
+										   target="" class="<{if isset($smarty.get.cateId) && $smarty.get.cateId == $cate['id']}>on<{/if}>"><{$cate['cate_name']}></a></li>
+								<{/foreach}>
+								<{/if}>
+							</ul>
+						</td>
+						<td class="js-more">
+
+						</td>
+					</tr>
+					<tr>
+						<td class="item-tit">
+							功效
+						</td>
+						<td class="js-res-no">
+							<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => $cateId,'effectId' => '0','star' => $star,'page' => 1])}>">不限</a>
+						</td>
+						<td class="groups-list">
+							<ul class="clearfix">
+
+								<{if $effectList}>
+									<{foreach key=key from=$effectList item=effect }>
+										<li><a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => $cateId,'effectId' => $effect['effect_id'],'star' => $star,'page' => 1])}>"
+											   target="" class="<{if isset($smarty.get.effectId) && $smarty.get.effectId == $effect['effect_id']}>on<{/if}>"><{$effect['effect_name']}></a></li>
+									<{/foreach}>
+								<{/if}>
+
+							</ul>
+						</td>
+						<td class="js-more">
+
+						</td>
+					</tr>
+					<tr>
+						<td class="item-tit">
+							星级
+						</td>
+						<td class="js-res-no">
+							<a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => $cateId,'effectId' => $effectId,'star' => '0','page' => 1])}>">不限</a>
+						</td>
+						<td class="groups-list">
+							<ul class="clearfix">
+
+								<{$star_data = [5,4,3,2,1]}>
+								<{foreach $star_data as $val}>
+									<li><a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$param.search,'brandId' => $brandId,'cateId' => $cateId,'effectId' => $effectId,'star' => $val,'page' => 1])}>"
+										   class="<{if isset($smarty.get.star) && $smarty.get.star == $val}>on<{/if}>" target=""><{$val}>星</a></li>
+								<{/foreach}>
+							</ul>
+						</td>
+						<td class="js-more">
+
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<{if $productList['list']}>
+				<{if isset($smarty.get.keyword) && $smarty.get.keyword }>
+					<div class="search-result">为你找到 <span><{$productList['pageTotal']}>个“<{$smarty.get.keyword}>”</span>相关产品 </div>
+				<{/if}>
+			<{else}>
+				<div class="article-search-tips">
+					<div class="search-tips-img"></div>
+					<div class="search-tips-h3">找不到你想找的产品...</div>
+					<p class="search-tips-p">颜究院后续会更新该产品信息，敬请期待~</p>
+				</div>
+				<div class="article-content-tips-tuij">为您推荐以下产品</div>
+			<{/if}>
+
+			<div class="recommend-bd-list">
+				<ul class="clearfix">
+
+					<{if $productList['list']}>
+						<!--产品列表-->
+						<{include file='../common/product_list.htm' list = $productList['list'] type = 'index'}>
+					<{else}>
+						<{if $recommendProduct['list']}>
+							<!--产品列表-->
+							<{include file='../common/product_list.htm' list = $recommendProduct['list'] type = 'index'}>
+						<{/if}>
+					<{/if}>
+				</ul>
+
+			</div>
+			<!--分页-->
+			<div class="pages-item">
+				<ul class="pagination">
+
+					<{if $productList['pageCount'] > 1 }>
+						<{if $productList['page']-1 != 0}>
+							<li class="prev disabled" data-page="<{$productList['page']-1}>"><a href="javascript:void(0)">上一页</a></li>
+						<{/if}>
+						<{for $foo=$productList['min_page'] to $productList['max_page'] }>
+							<li class="<{if $productList['page'] == $foo }>active<{/if}>" data-page="<{$foo}>"><a href="javascript:void(0)" target=""><{$foo}></a></li>
+						<{/for}>
+						<{if $productList['page'] < $productList['pageCount']}>
+							<li class="next" data-page="<{$productList['page']+1}>"><a href="javascript:void(0)">下一页</a></li>
+						<{/if}>
+						<li class="next" data-page="<{$productList['pageCount'] }>"><a href="javascript:void(0)">末页</a></li>
+					<{/if}>
+
+				</ul>
+			</div>
+
+			<!--广告-->
+			<{include file='../common/advertisement.htm' list = $advertisementList['main1'] class = "left-ad" name = "main1"}>
+
+		</div>
+		<div class="product-list-ri">
+
+			<!--推荐品牌-->
+			<{include file='../common/recommenb_brand.htm' class = "icon-tjpp"}>
+
+			<!--广告-->
+			<{include file='../common/advertisement.htm' list = $advertisementList['left1'] class = "recommend-ad" name = "left1"}>
+
+			<!-- 推荐文章 -->
+			<{include file='../common/recommenb_article.htm'}>
+		</div>
+	</div>
+</div>
+
+
+<{include file='../common/footer.htm'}>
+
+<script>
+
+	//分页跳转(关键词、列表条件)
+	$(document).on("click",'.pagination li',function(){
+		var page= $(this).attr("data-page");
+		var keyword = $("input[name='keyword']").val();
+
+		if(keyword){
+			var url = '/productlist.html?keyword=' + keyword + '&page=' + page;
+		}else{
+			var brandId = "<{$brandId}>";
+			var cateId = "<{$cateId}>";
+			var effectId = "<{$effectId}>";
+			var star = "<{$star}>";
+
+			var url = '/productlist/' + brandId + '-' + cateId + '-' + effectId + '-' + star + '-' + page + '.html';
+		}
+		window.location.href = url;
+
+	});
+
+</script>

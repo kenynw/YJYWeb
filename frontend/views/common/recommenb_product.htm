@@ -1,0 +1,44 @@
+
+<{if !isset($type)}>
+    <!-- 推荐产品 -->
+    <div class="recommend-com-right recommend-pro-right">
+        <h2 class="hd icon-tit-01">推荐产品</h2>
+        <ul class="pro-list">
+<{/if}>
+
+            <{if $recommendProduct['list'] }>
+            <{foreach key=key from=$recommendProduct['list'] item=product }>
+            <li>
+                <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="" target="_blank" class="pro-name ell"><i class="icon-num-<{$key+1}>"></i><{$product['product_name']}></a>
+                <div class="pro-show clearfix">
+                    <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" class="link-box" title="" target="_blank">
+                        <div class="pro-img">
+                            <img src="<{if $product['product_img'] !='' }><{$GLOBALS['uploadsUrl']}><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>" alt="<{$key+1}>.<{$product['product_name']}>">
+                        </div>
+                        <div class="pro-detail">
+                            <span class="pro-tit"><{$key+1}>.<{$product['product_name']}></span>
+                            <span class="pro-price">参考价：
+                                <{if empty($product['price']) && empty($product['form'])}>
+                                    暂无报价
+                                <{else}>
+                                    <{if !empty($product['price'])}>¥<{$product['price']}>
+                                        <{if !empty($product['form'])}>／<{$product['form']}><{/if}>
+                                    <{/if}>
+                                <{/if}>
+                            </span>
+                            <span class="star star<{$product['star']}>"></span>
+                        </div>
+                    </a>
+                </div>
+            </li>
+            <{/foreach}>
+            <{/if}>
+
+
+<{if !isset($type)}>
+        </ul>
+        <{if $recommendProduct['pageTotal'] > 5 }>
+        <div class="btn-box btn-box-slide" data-type="product" data-page="1" data-max-page="<{$recommendProduct['pageCount']}>">换一组</div>
+        <{/if}>
+    </div>
+<{/if}>

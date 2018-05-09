@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>颜究院小秘书</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="<{$GLOBALS['static_path']}>h5/swoole/css/style.m.min.css">
+</head>
+<body>
+<div class="empty-chat" id="empty-chat">
+    <img src="<{$GLOBALS['static_path']}>h5/swoole/images/none-img.png" alt="">
+    <p>说说你的建议吧！</p>
+</div>
+<ul class="chatroom-box" id="messages">
+</ul>
+<div class="imgZoom">
+    <img src="">
+</div>
+<div id="jdw">&nbsp;</div>
+<div class="inp-box">
+    <form action="" role="form" onsubmit="sendMessage(); return false;">
+        <div contenteditable="true" name="message" class="inp-text" id="message"></div>
+        <input type="file" name="" class="imgfile" id="imgfile" onClick="uploadImg()">
+        <input type="hidden" value="" name="image"  />
+        <span class="imgfile-bg"></span>
+        <input type="button" name="" value="发&nbsp;送" class="submit-btn" onClick="sendMessage()">
+    </form>
+</div>
+<script>
+    var token       = '';
+    var static_path = "<{Yii::$app->params['static_path']}>";
+    var apiPathUrl  = "<{Yii::$app->params['apiPathUrl']}>";
+    var swooleIp    = <{if Yii::$app->params['isOnline']}>"ws://112.74.63.107:9502"<{else}>"ws://192.168.100.1:9502"<{/if}>;
+</script>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>h5/swoole/js/lib/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>h5/swoole/js/lib/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>h5/swoole/js/page.js"></script>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>h5/swoole/js/m-web-socket.js"></script>
+</body>
+</html>

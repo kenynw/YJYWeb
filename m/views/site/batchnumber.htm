@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>批号说明</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="MobileOptimized" content="320">
+        <meta  name="applicable-device" content="mobile">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/yjy.css">
+    </head>
+    <body>
+        <div class="mod-main">
+            <div class="mod-box">
+                <h3 class="title">什么是批号？</h3>
+                <p class="info">护肤品批号是生产商/品牌商用于记录产品产地、生产日期、生产批次等信息的重要手段，我们也可以通过查询批号信息获取最准确的生产信息~</p>
+            </div>
+            <div class="mod-box">
+                <h3 class="title">我在哪里能看到批号？</h3>
+                <p class="info">一般批号会印刷在容器底部、管尾，你也可以在外盒或者背面找到生产批号。例如瓶装产品，批号通常印刷在底部：</p>
+                <img src="<{$GLOBALS['static_path']}>app/images/query_tip1.jpg" alt="">
+                <p class="info">例如管状产品，批号通常压印在头部：</p>
+                <img src="<{$GLOBALS['static_path']}>app/images/query_tip2.jpg" alt="">
+            </div>
+            <div class="mod-box">
+                <h3 class="title">查询的到批号的产品一定是正品吗？</h3>
+                <p class="info">不一定，因为同一批产品用的是同一个批号，这个批号有可能被造厂商大量复制。</p>
+            </div>
+            <div class="mod-box">
+                <h3 class="title">颜究院提供的过期日期是否准确？</h3>
+                <p class="info">由于不知道每个用户查询的是什么产品，所以颜究院提供的是一个通用的3年标准（该标准来源于日本药事法规定，以3年不变质为最低限）。</p>
+                <p class="info">但是每个产品都有一个建议开封使用时间，印刷在瓶身，建议以每个产品为标准哦~</p>
+                <p class="info">同时，您也可以在颜究院记录开封时间，在使用日期到之前，我们会提醒您哦~</p>
+                <img src="<{$GLOBALS['static_path']}>app/images/query_tip3.jpg" alt="">
+                <img src="<{$GLOBALS['static_path']}>app/images/query_tip4.jpg" alt="">
+                <img src="<{$GLOBALS['static_path']}>app/images/query_tip5.jpg" alt="">
+            </div>
+        </div>
+    </body>
+    <script>
+        (function (window, document) {
+            (function () {
+                var viewportEl = document.querySelector('meta[name="viewport"]'), hotcssEl = document.querySelector('meta[name="hotcss"]'), dpr = window.devicePixelRatio || 1;
+                if (hotcssEl) {
+                    var hotcssCon = hotcssEl.getAttribute("content");
+                    if (hotcssCon) {
+                        var initialDpr = hotcssCon.match(/initial\-dpr=([\d\.]+)/);
+                        if (initialDpr) {
+                            dpr = parseFloat(initialDpr[1])
+                        }
+                    }
+                }
+                var scale = 1, content = "width=device-width, initial-scale=" + scale + ", minimum-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no";
+                if (viewportEl) {
+                    viewportEl.setAttribute("content", content)
+                } else {
+                    viewportEl = document.createElement("meta");
+                    viewportEl.setAttribute("name", "viewport");
+                    viewportEl.setAttribute("content", content);
+                    document.head.appendChild(viewportEl)
+                }
+            })();
+            var hotcss = {};
+            hotcss.px2rem = function (px, designWidth) {
+                if (!designWidth) {
+                    designWidth = parseInt(hotcss.designWidth, 10)
+                }
+                return parseInt(px, 10) * 375 / designWidth / 20
+            };
+            hotcss.mresize = function () {
+                var innerWidth = window.innerWidth;
+                if (!innerWidth) {
+                    return false
+                }
+                document.documentElement.style.fontSize = (innerWidth * 20 / 375) + "px"
+            };
+            hotcss.mresize();
+            window.addEventListener("resize", hotcss.mresize, false);
+            window.addEventListener("load", hotcss.mresize, false);
+            setTimeout(function () {
+                hotcss.mresize()
+            }, 300);
+            window.hotcss = hotcss
+        })(window, document);
+    </script>
+    <{$GLOBALS['statisticalCode']}>
+</html>

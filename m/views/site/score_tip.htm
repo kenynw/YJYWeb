@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>评分细则</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="MobileOptimized" content="320">
+        <meta  name="applicable-device" content="mobile">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/yjy.css">
+    <script>
+        (function (window, document) {
+            (function () {
+                var viewportEl = document.querySelector('meta[name="viewport"]'), hotcssEl = document.querySelector('meta[name="hotcss"]'), dpr = window.devicePixelRatio || 1;
+                if (hotcssEl) {
+                    var hotcssCon = hotcssEl.getAttribute("content");
+                    if (hotcssCon) {
+                        var initialDpr = hotcssCon.match(/initial\-dpr=([\d\.]+)/);
+                        if (initialDpr) {
+                            dpr = parseFloat(initialDpr[1])
+                        }
+                    }
+                }
+                var scale = 1, content = "width=device-width, initial-scale=" + scale + ", minimum-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no";
+                if (viewportEl) {
+                    viewportEl.setAttribute("content", content)
+                } else {
+                    viewportEl = document.createElement("meta");
+                    viewportEl.setAttribute("name", "viewport");
+                    viewportEl.setAttribute("content", content);
+                    document.head.appendChild(viewportEl)
+                }
+            })();
+            var hotcss = {};
+            hotcss.px2rem = function (px, designWidth) {
+                if (!designWidth) {
+                    designWidth = parseInt(hotcss.designWidth, 10)
+                }
+                return parseInt(px, 10) * 375 / designWidth / 20
+            };
+            hotcss.mresize = function () {
+                var innerWidth = window.innerWidth;
+                if (!innerWidth) {
+                    return false
+                }
+                document.documentElement.style.fontSize = (innerWidth * 20 / 375) + "px"
+            };
+            hotcss.mresize();
+            window.addEventListener("resize", hotcss.mresize, false);
+            window.addEventListener("load", hotcss.mresize, false);
+            setTimeout(function () {
+                hotcss.mresize()
+            }, 300);
+            window.hotcss = hotcss
+        })(window, document);
+    </script>
+</head>
+<body>
+<div class="mod-main">
+    <div class="mod-box">
+        <h3 class="title">关于肤质你必须知道的：</h3>
+        <p class="info">人的肤质是在不断变化的，你所居住城市的外部环境（气候/湿润度），不同的季节（冬季/夏季）等很多因素都会对你的肤质产生影响，进而出现不同的肤质结果。随着年龄的变化，油性皮肤也会随年龄的增加逐渐转换成干性皮肤，所以我们建议每隔3-6个月，重新做一次测试，更加准确的了解你的肤质变化。</p>
+    </div>
+    <div class="mod-box">
+        <h3 class="title">肤质测试的准确度？</h3>
+        <p class="info">如果你的分数恰好处于两种皮肤的边界值，那么两种皮肤的特质和护肤方式都需要了解。因为一些外界因素，及个人判断的影响，有可能对分数产生一定的影响。例如：如果你的干性/油性测试得分在25-28分之间，那么你出于轻微油性和轻微干性之间，外界环境的细微变化都有可能导致你的皮肤分类发生变化。</p>
+    </div>
+    <div class="mod-box">
+        <h3 class="title">肤质测试的可信度有多少？</h3>
+        <p class="info">本测试由美国著名皮肤专科医师莱斯利·鲍曼发明，受到国际广泛认可，属于国际通用的肤质测试方案。但由于个人感受原因，所以可能存在一定的偏差程度。</p>
+    </div>
+</div>
+</body>
+<{$GLOBALS['statisticalCode']}>
+</html>

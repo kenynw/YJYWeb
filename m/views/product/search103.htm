@@ -1,0 +1,55 @@
+<{include file='../common/header103.htm'}>
+<!-- 产品大全 -->
+<section class="prolist-box mb-20">
+    <div class="hd">共有<span class="green"><{$productList['pageTotal']}></span>个<{$cate_name}>产品<span class="classify classify-toggle"></span></div>
+    <ul class="pro-list clearfix">
+    <!-- <{if $productList['list']}> -->
+        <!--<{foreach key=key from=$productList['list'] item=product }>-->
+            <li>
+                <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>">
+                    <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$product['product_name']}>">
+                    <span class="tit ell"><{$product['product_name']}></span>
+                    <span class="price ell">参考价：
+                        <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                        暂无报价
+                        <!--<{else}>-->
+                        ¥<{$product['price']}>／<{$product['form']}>
+                        <!--<{/if}>-->
+                    </span>
+                    <span class="star">
+                       <span class="star-num" style="width:<{$product['star']*20}>%;"></span>
+                    </span>
+                </a>
+            </li>
+        <!--<{/foreach}>--> 
+    <!--<{/if}>-->   
+    </ul>
+    <{$pages}>
+</section>
+
+<!-- 分类大全 -->
+<section class="classify-box">
+    <!-- <{if $ProductCategory}> -->
+        <div class="classify-main">
+        <!--<{foreach key=key from=$ProductCategory item=category }>-->
+            <div class="<{if $key== 0}>face<{elseif $key== 1}>body<{else}>cosmetics<{/if}>-box">
+                <h4><i></i><{$category['cate_name']}></h4>
+                <div class="abox clearfix">
+                <!--<{foreach key=key from=$category['sub'] item=subcate}>-->
+                    <a href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>$subcate['id']])}>"><{$subcate['cate_name']}></a>
+                <!--<{/foreach}>--> 
+                </div>
+            </div>
+        <!--<{/foreach}>--> 
+            <div class="close classify-toggle"></div>
+        </div>
+    <!--<{/if}>--> 
+</section>
+
+<!-- 热门问答 -->
+<{include file='../common/commonAsk.htm'}>
+
+<!-- 热门文章 -->
+<{include file='../common/commonArticle.htm'}>
+
+<{include file='../common/footer103.htm'}>

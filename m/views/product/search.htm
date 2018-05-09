@@ -1,0 +1,155 @@
+<{include file='../common/header.htm'}>
+
+<div class="sea-box">
+    <div class="head-search boxsize">
+        <div class="search-box boxsize">
+            <form>
+                <input type="hidden" name="cateId" value="<{if isset($smarty.get.cateId)}><{$smarty.get.cateId}><{/if}>">
+                <input type="hidden" name="cateName" value="<{if isset($smarty.get.cateName)}><{$smarty.get.cateName}><{/if}>">
+                <i class="icon ico-ss"></i>
+                <input type="text" name="keyword" value="<{if isset($smarty.get.keyword)}><{$smarty.get.keyword}><{/if}>" placeholder="请输入产品名／功效">
+                <i class="icon ico-close"></i>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="search-main-box">
+    <div class="search-main">
+
+        <!-- <{if $productList['list']}> -->
+        <div class="jguo boxsize">共有<{$productList['pageTotal']}>个结果</div> 
+        <ul class="tj-box mod-main">
+            <!--<{foreach key=key from=$productList['list'] item=product }>-->
+            <li class="boxsize">
+                <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="<{$product['product_name']}>">
+                    <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$product['product_name']}>">
+                    <p class="ell"><{$product['product_name']}></p>
+                    <span class="ell">参考价：
+                        <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                        暂无报价
+                        <!--<{else}>-->
+                        ¥<{$product['price']}>／<{$product['form']}>
+                        <!--<{/if}>-->
+                    </span>
+                    <div class="star">
+                        <!--<{for $foo=1 to $product['star']}>-->
+                        <i class="icon ico-star"></i>
+                        <!--<{/for}>-->
+                        <!--<{for $foo=1 to (5-$product['star']) }>-->
+                        <i class="icon"></i>
+                        <!--<{/for}>-->
+                    </div>
+                </a>
+            </li>
+            <!--<{/foreach}>-->
+        </ul>
+
+        <!--<{else}>-->
+        <div class="null-jg">
+            <img src="<{$GLOBALS['static_path']}>h5/images/null.png" alt="">
+            <p>不好意思，找不到对应产品信息哦</p>
+        </div>
+
+        <!-- <{if $recommendList['list']}> -->
+        <div class="wntj">
+            <p>为你推荐以下产品：</p>
+        </div>
+        <ul class="tj-box">
+            <!--<{foreach key=key from=$recommendList['list'] item=product }>-->
+            <li class="boxsize">
+                <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="<{$product['product_name']}>">
+                    <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$product['product_name']}>">
+                    <p class="ell"><{$product['product_name']}></p>
+                    <span class="ell">参考价：
+                        <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                        暂无报价
+                        <!--<{else}>-->
+                        ¥<{$product['price']}>／<{$product['form']}>
+                        <!--<{/if}>-->
+                    </span>
+                    <div class="star">
+                        <!--<{for $foo=1 to $product['star']}>-->
+                        <i class="icon ico-star"></i>
+                        <!--<{/for}>-->
+                        <!--<{for $foo=1 to (5-$product['star']) }>-->
+                        <i class="icon"></i>
+                        <!--<{/for}>-->
+                    </div>
+                </a>
+            </li>
+            <!--<{/foreach}>-->
+        </ul>
+        <!--<{/if}>-->
+        <!--<{/if}> -->
+    </div>
+</div>
+
+<div class="mod-top">
+    <span class="i-top " id="go-top"></span>
+</div>
+
+<{include file='../common/footer.htm'}>
+
+<script>
+    //当前页码
+    var page = 2;
+    var off  = 1;
+    var cateId = "<{if isset($smarty.get.cateId)}><{$smarty.get.cateId}><{/if}>";
+    var keyword = "<{if isset($smarty.get.keyword)}><{$smarty.get.keyword}><{/if}>";
+    var titles = "<{if isset($smarty.get.cateName) && !empty($smarty.get.cateName)}><{$smarty.get.cateName}><{else}>颜究院<{/if}>";
+
+    $(function(){
+        document.title = titles;
+
+        $('.search-box').find('form').submit(function(){
+            $(this).find('input').blur();
+        });
+        $(window).scroll(function(){
+            var $this = $(this);
+            viewH =$this.height();//可见高度
+            contentH =$(document).height();//内容高度
+            scrollTop =$this.scrollTop();//滚动高度
+            if(viewH + scrollTop >= contentH){
+                getData();
+            }
+        });
+
+        /*回到顶部*/
+        $("#go-top").on("click", function () {
+            $("body,html").animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+
+
+
+    //获取数据
+    function getData() {
+        //开关
+        if(off != 1) return false;
+        off = 0;
+        var url = '/product/get-search-data';
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {page:page,cateId:cateId,keyword:keyword},
+            dataType: "json",
+            cache: false,
+            beforeSend: function() {
+            //layer.load();
+            },
+            success: function(result) {
+                off = 1;
+                page ++;
+                $(".tj-box").append(result);
+            },
+            complete: function() {
+                //layer.closeAll('loading');
+            }
+        });
+    }
+
+
+</script>

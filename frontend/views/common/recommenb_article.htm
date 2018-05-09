@@ -1,0 +1,28 @@
+
+<{if !isset($type)}>
+    <div class="recommend-com-right recommend-art-right">
+        <h2 class="hd icon-pro-hd02">热门文章</h2>
+        <ul class="pro-list">
+<{/if}>
+
+            <{if $hotArticle['list'] }>
+            <{foreach key=key from=$hotArticle['list'] item=article }>
+            <li>
+                <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="" target="_blank" class="pro-name ell"><i class="icon-num-<{$key+1}>"></i><{$article['title']}></a>
+                <div class="art-show">
+                    <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="" target="_blank">
+                        <img src="<{$article['article_img']}>">
+                        <span class="opacity-txt"><{$key+1}>.<{$article['title']}></span>
+                    </a>
+                </div>
+            </li>
+            <{/foreach}>
+            <{/if}>
+
+<{if !isset($type)}>
+        </ul>
+        <{if $hotArticle['pageTotal'] > 5 }>
+            <div class="btn-box btn-box-slide" data-type="article" data-page="1" data-max-page="<{$hotArticle['pageCount']}>">换一组</div>
+        <{/if}>
+    </div>
+<{/if}>

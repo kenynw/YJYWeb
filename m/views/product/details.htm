@@ -1,0 +1,122 @@
+<{include file='../common/header.htm'}>
+
+<div class="data-pic">
+    <img class="ban-pic" src="<{if $productDetails['product_img'] !='' }><{$GLOBALS['uploadsUrl']}><{$productDetails['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$productDetails['product_name']}>">
+    <p class="ell"><{$productDetails['product_name']}></p>
+    <span class="ell">参考价：
+        <!--<{if $productDetails['price'] eq '0' or $productDetails['form'] eq '0'}>-->
+                暂无报价
+        <!--<{else}>-->
+                ¥<{$productDetails['price']}>／<{$productDetails['form']}>
+        <!--<{/if}>-->
+    </span>
+    <div class="star">
+        <!--<{for $foo=1 to $productDetails['star']}>-->
+        <i class="icon ico-star"></i>
+        <!--<{/for}>-->
+        <!--<{for $foo=1 to (5-$productDetails['star']) }>-->
+        <i class="icon"></i>
+        <!--<{/for}>-->
+    </div>
+</div>
+<ul class="tab-nav">
+    <li class="nav-act">
+        <p>综述</p>
+        <span></span>
+    </li>
+    <li>
+        <p>成分表</p>
+        <span></span>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="zs boxsize">
+        <!-- <{if $function_list}> -->
+        <h3><i class="bor-1"></i>功效</h3>
+        <div class="gx">
+            <ul>
+                <!--<{foreach key=name from=$function_list item=num }>-->
+                    <li><{$name}>：<{count($num)}>种</li>
+                <!--<{/foreach}>-->
+            </ul>
+        </div>
+        <!-- <{/if}> -->
+
+        <!-- <{if $safe_list}> -->
+        <h3><i class="bor-2"></i>安全性</h3>
+        <div class="aq">
+            <ul>
+                <!--<{foreach key=name from=$safe_list item=num }>-->
+                    <li><{$name}>：<{count($num)}>种</li>
+                <!--<{/foreach}>-->
+            </ul>
+        </div>
+        <!-- <{/if}> -->
+		<!-- <{if ($productDetails['product_date'] neq '0') || ($productDetails['standard_number'] neq '') || ($productDetails['product_country'] neq '') || ($productDetails['product_company'] neq '') || ($productDetails['en_product_company'] neq '')}> -->
+        <h3><i class="bor-3"></i>备案信息</h3>
+        <!-- <{/if}> -->
+        <!-- <{if $productDetails['standard_number'] neq '' }> -->
+        <p><span>备案文号：</span><{$productDetails['standard_number']}></p>
+        <!-- <{/if}> -->
+        <!-- <{if $productDetails['product_country'] neq '' }> -->
+        <p><span>生产国：</span><{$productDetails['product_country']}></p>
+        <!-- <{/if}> -->
+        <!-- <{if $productDetails['product_company'] neq '' }> -->
+        <p><span>生产企业：</span><{$productDetails['product_company']}></p>
+        <!-- <{/if}> -->
+        <!-- <{if $productDetails['en_product_company'] neq '' }> -->
+        <p><span>生产企业(英)：</span><{$productDetails['en_product_company']}></p>
+        <!-- <{/if}> -->
+        <!-- <{if $productDetails['product_date'] neq '0' }> -->
+        <p><span>批准日期：</span><{date('Y-m-d',$productDetails['product_date'])}></p>
+        <!-- <{/if}> -->
+    </div>
+    <div class="cfb boxsize">
+        <h4>本产品共含有<{count($componentList)}>种成分</h4>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>成分名称</th>
+                <th>安全<br/>风险</th>
+                <th>活性<br/>成分</th>
+                <th>致痘<br/>风险</th>
+                <th>使用目的</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- <{if $componentList}> -->
+            <!--<{foreach key=key from=$componentList item=component }>-->
+            <tr>
+                <td><{$component['name']}></td>
+                <td>
+                    <{if $component['risk_grade'] == ""}>
+                    <{elseif $component['risk_grade'] <= 2}>
+                        <span><{$component['risk_grade']}></span>
+                    <{elseif $component['risk_grade'] <= 6}>
+                        <span class="td-oth"><{$component['risk_grade']}></span>
+                    <{else}>
+                        <span class="td-oths"><{$component['risk_grade']}></span>
+                    <{/if}>
+                </td>
+                <td><!--<{if $component['is_active'] eq '1'}>--><img src="<{$GLOBALS['static_path']}>h5/images/smile.png" alt=""><!--<{/if}>--></td>
+                <td><!--<{if $component['is_pox'] eq '1'}>--><img src="<{$GLOBALS['static_path']}>h5/images/Danger.png" alt=""><!--<{/if}>--></td>
+                <td><{$component['component_action']}></td>
+            </tr>
+            <!--<{/foreach}>-->
+            <!-- <{/if}> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<{include file='../common/footer.htm'}>
+
+<script>
+    var titles = "<{if isset($productDetails['product_name'])}><{$productDetails['product_name']}><{else}>颜究院<{/if}>";
+
+    $(function() {
+        document.title = titles;
+    });
+
+</script>

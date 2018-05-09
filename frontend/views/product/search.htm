@@ -1,0 +1,101 @@
+<{include file='common/header.htm'}>
+<{include file='common/header_bar.htm'}>
+
+<!-- 搜索 -->
+<div class="main">
+    <ul class="bread-nav">
+        <li><a href="/site">首页</a><span>&gt;</span></li>
+        <li><a href="/productlist">产品库</a><span>&gt;</span></li>
+        <li>产品搜索</li>
+    </ul>
+
+    <!-- <{if $productList['list']}> -->
+        <p class="se-rul">共找到<{$productList['pageTotal']}>个搜索结果</p>
+        <ul class="search-result">
+            <!--<{foreach key=key from=$productList['list'] item=product }>-->
+                <li>
+                    <a href="/product/<{$product['id']}>.html" target="_blank" class="pic" title="<{$product['product_name']}>"><img src="<{if $product['product_img'] !='' }><{$GLOBALS['uploadsUrl']}><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>" alt="<{$product['product_name']}>"></a>
+                    <a href="/product/<{$product['id']}>.html" target="_blank" class="cp-name ell" title="<{$product['product_name']}>"><{$product['product_name']}></a>
+                    <p class="ell">参考价：
+                        <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                        暂无报价
+                        <!--<{else}>-->
+                        ¥<{$product['price']}>／<{$product['form']}>
+                        <!--<{/if}>-->
+                    </p>
+                    <div class="star">
+                        <!--<{for $foo=1 to $product['star']}>-->
+                        <i class="icon ico-star"></i>
+                        <!--<{/for}>-->
+                        <!--<{for $foo=1 to (5-$product['star']) }>-->
+                        <i></i>
+                        <!--<{/for}>-->
+                    </div>
+                </li>
+            <!--<{/foreach}>-->
+        </ul>
+        <!-- 分页 -->
+    	<!--<{if $productList['pageCount'] gt '1'}> -->
+	    <div class="tcdPageCode">
+	    </div>
+    	<!--<{/if}>-->
+    <!--<{else}>-->
+	    <div class="se-rul clearfix">
+	        <img src="<{$GLOBALS['static_path']}>pc/images/se-rul.png" height="225" width="268" alt="">
+	        <div class="se-text">
+	            <h4>小仙女，你的商品正在走失中......</h4>
+	            <span>小颜建议你，发挥死磕精神 :</span>
+	            <p>认真核对产品包装上的正式名称，避免输入法错误。</p>
+	            <p>1. 如：欧泊莱，正确名为欧珀莱</p>
+	            <p>2. 如：洁面产品，名称可能为洁颜，洗颜，洗面等。</p>
+	            <p>3. 尝试输入：品牌名 + 功效，来搜索对应结果哦</p>
+	            <span>找小颜打小报告</span>
+	            <p>发现我们的产品库中有遗漏产品的话，来我们的微信公众号</p>
+	            <p>护肤颜究院<span>（ID：tmshuo520）</span>告诉小颜，小颜会尽快补充哒~</p>
+	        </div>
+	    </div>
+        <!-- <{if $recommendList['list']}> -->
+            <h4 class="tit-tj">为你推荐以下产品：</h4>
+            <ul class="search-result">
+                <!--<{foreach key=key from=$recommendList['list'] item=product }>-->
+                <li>
+                    <a href="/product/<{$product['id']}>.html" class="pic" title="<{$product['product_name']}>"><img src="<{$GLOBALS['uploadsUrl']}><{$product['product_img']}>" alt="<{$product['product_name']}>"></a>
+                    <a href="/product/<{$product['id']}>.html" class="cp-name ell" title="<{$product['product_name']}>"><{$product['product_name']}></a>
+                    <p class="ell">参考价：
+                        <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                        暂无报价
+                        <!--<{else}>-->
+                        ¥<{$product['price']}>／<{$product['form']}>
+                        <!--<{/if}>-->
+                    </p>
+                    <div class="star">
+                        <!--<{for $foo=1 to $product['star']}>-->
+                        <i class="icon ico-star"></i>
+                        <!--<{/for}>-->
+                        <!--<{for $foo=1 to (5-$product['star']) }>-->
+                        <i></i>
+                        <!--<{/for}>-->
+                    </div>
+                </li>
+                <!--<{/foreach}>-->
+            </ul>
+        <!--<{/if}>-->
+    <!--<{/if}> -->
+
+</div>
+
+<{include file='common/footer.htm'}>
+<script src="<{$GLOBALS['static_path']}>pc/js/jquery.page.js"></script>
+<script>
+    //分页
+    $(".tcdPageCode").createPage({
+        pageCount:<{$productList['pageCount']}>,
+        current:<{if isset($smarty.get.page)}><{$smarty.get.page}><{else}>1<{/if}>,
+
+        backFn:function(p){
+            var keyword = "<{if isset($smarty.get.keyword)}><{$smarty.get.keyword}><{/if}>";
+            url = "<{$GLOBALS['frontendUrl']}>" + "productsearch/" + keyword + "-" + p + ".html";
+            window.location.href= url;
+        }
+    });
+</script>

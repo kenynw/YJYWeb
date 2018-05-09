@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="apple-mobile-web-app-title" content="<{$title}>"/>
+        <meta name="description" content="<{$title}>">
+        <meta name="keywords" content="<{$title}>">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+        <meta name="MobileOptimized" content="320">
+        <meta name="format-detection" content="telephone=no, address=no, email=no">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <meta  name="applicable-device"content="mobile">
+        <title><{$title}></title>
+        <link rel="apple-touch-icon-precomposed" href=""/>
+        <!-- DNS预解析 常用于图片URL 静态资源URL -->
+        <link rel="dns-prefetch" href="//">
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>h5/v103/css/tool.min.css">
+    </head>
+<body class="phcx-bg">
+    <!-- 头部 -->
+<header>
+   <div class="downl-box">
+        <a href="javascript:;" class="logo">颜究院，科学护肤神器</a>
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="downl">立即下载</a>
+   </div>
+   <ul class="top-menu">
+        <li>
+            <a href="/">返回<br>首页</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'product' }>class="active"<{/if}> >
+            <a   href="<{Yii::$app->urlManager->createUrl(['product/search','cate_id'=>56])}>">产品<br>大全</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'article' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/list'])}>">护肤<br>知识</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'ask' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['ask/index'])}>">热门<br>问答</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'tool' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['tool/cosmetics'])}>">批号<br>查询</a>
+        </li>
+   </ul>
+</header>
+    <div class="search-bg">
+        <div class="search-box box-size">
+            <form action="javascript:void(0)"  onsubmit="return getCosmetics();">
+                <input  type="hidden" name = "id" id='cosid' value="">
+                <div class="group"><span class="box-size js-search inp-name">请输入品牌名称</span></div>
+                <div class="group"><input class="box-size inp-ph" type="search" name="" value="" placeholder="请输入品牌批号"></div>
+                <p class="sm"><a href="/site/batch-number" class="sm-btn">批号说明</a></p>
+                <div class="group"><input id="js-enquiry" class="box-size" type="button" name="" value="立即查询"></div>
+            </form>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!-- 搜索 -->
+    <div class="search-modal">
+        <div class="s-mod-top">
+            <div class="sear-input-box box-size">
+                <input class="icon" type="button" value="搜索">
+                <input class="search-input box-size" type="text" value="">
+                <i class="close-sear icon">关闭</i>
+            </div>
+            <div class="close-mod">取消</div>
+        </div>
+        <div class="s-mod-box box-size">
+            <!-- 搜索建议 -->
+            <div class="jy-search box-size">
+                <!-- <div class="sea-tit box-size hot">热门品牌</div> -->
+                <ul class="box-size  search-ul">
+
+                </ul>
+                <div class="sea-result-tit">搜索结果</div>
+                <!-- <div class="sea-tit box-size other">其他品牌</div> -->
+                <ul class="box-size search-ul">
+                <!--<{foreach key=k item=cts from=$cosmeticsList.cosmeticsList}>-->
+                    <li id = "pdclass_<{$cosmeticsList.letterArr[$k]}>" pinyin="<{$cosmeticsList.letterArr[$k]}>" name="<{$cosmeticsList.letterArr[$k]}>" class="letter-tit"><{$cosmeticsList.letterArr[$k]}></li>
+                    <!--<{foreach key=k item=cosmetics from=$cts}>-->
+                        <li pinyin="<{$cosmetics['name']}>" name="<{$cosmetics['name']}>" data-class="<{$cosmetics['letter']}>" cid="<{$cosmetics['id']}>" ><{$cosmetics['name']}></li>
+                    <!--<{/foreach}>-->
+                <!--<{/foreach}>-->
+                </ul>
+                
+            </div>
+            <!-- 搜索结果 -->
+            <div class="sea-result box-size">
+                <div class="sea-result-tit">搜索结果</div>
+                <p>没有查询到结果，请联系她们说公众号<span>（tmshuo520）</span>进行查询。</p>
+            </div>
+        </div>
+    </div>
+    <div class="err-text box-size">请输入批号</div>
+    <div class="modal-bg"></div>
+    <div class="modal box-size" id="modal">
+        <i class="icon js-colse"></i>
+        <h3 class="l-ell4">Biotherm 碧欧泉男士</h3>
+        <p class="batch-num">批号：1234</p>
+        <p>生产日期：<span>2016年01月01日</span></p>
+        <p>过期日期：<span>2019年01月01日</span></p>
+        <a href="/site/download-guide" class="btn">下载APP, 添加到保质期提醒</a>
+    </div>
+    <footer>
+        Copyright 2017-2018 yjyapp.com，right reserved.
+    </footer>
+</body>
+<script src="<{$GLOBALS['static_path']}>h5/js/script.min.js"></script>
+<script src="<{$GLOBALS['static_path']}>h5/v103/js/tool.js"></script>
+<script src="<{$GLOBALS['static_path']}>h5/js/layer_mobile/layer.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    $(function(){
+        var inputPh = $('.inp-ph');
+        var inputName = $('.inp-name');
+        $('.search-box').on('input propertychange',function(){
+            if (inputName.text() !== '' && inputPh.val()!=='') {
+                $('#js-enquiry').css({'background-color':'#32dac3','color':'#fff'});
+            }
+        });
+        $('#js-enquiry').on('click',getCosmetics);
+
+    });
+    //查询数据
+    function getCosmetics() {
+        var url     = 'select-cosmetics';
+        var id      = $("#cosid").val();
+        var name    = $('.inp-name').text();
+        var number  = $(".inp-ph").val();
+        if (name == '' || number=='') {
+            $('.err-text').text('请输入批号');
+            $('.err-text').fadeIn().delay(1000).fadeOut();
+            return false;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {_csrf:'<?= Yii::$app->request->csrfToken ?>',id:id,number:number},
+            dataType: "json",
+            cache: false,
+            beforeSend: function() {
+              layer.open({type: 2});
+            },
+            success: function(result) {
+                if(result.status == 1){
+                    $('.box-size .l-ell4').text(name);
+                    $('.batch-num').text('批号：' + number);
+                    if(result.startDay){
+                      $('#modal p').eq(1).find('span').text(result.startDay);  
+                    }
+                    if(result.endDay){
+                      $('#modal p').eq(2).find('span').text(result.endDay);
+                    }
+                    $('.modal-bg,.modal').fadeIn(300);
+                }else{
+                    $('.err-text').text(result.msg);
+                    $('.err-text').fadeIn().delay(500).fadeOut();
+                }
+            },
+            complete: function() {
+               layer.closeAll();
+            }
+        });
+    }
+    
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: "<{$GLOBALS['jsApi']['APPID'] }>",
+        timestamp: "<{$GLOBALS['jsApi']['timestamp'] }>",//这个一定要与上面的php代码里的一样。
+        nonceStr: "<{$GLOBALS['jsApi']['noncestr'] }>",//这个一定要与上面的php代码里的一样。
+        signature: "<{$GLOBALS['jsApi']['signature'] }>",
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+    wx.ready(function(){
+        var title = "<{$GLOBALS['OfficialAccounts']['share']['title'] }>",   // 分享标题
+            desc = "<{$GLOBALS['OfficialAccounts']['share']['desc'] }>",   //分享描述
+            imgUrl = "<{$GLOBALS['OfficialAccounts']['share']['imgUrl'] }>"; // 分享图标
+
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            success: function () {},
+            cancel: function () {}
+        });
+
+        //发送给好友
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {},
+            cancel: function () {}
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,33 @@
+
+<div style="color:red">
+	<{$msg}>
+</div>
+
+<style>
+	input{ padding:5px;}
+</style>
+
+
+<div style="width:100%;">
+	<div style="width:35%;background: beige;margin:200px auto;padding:5px 20px 20px 20px;">
+		<h1>产品批量导入</h1><br/>
+		<form method="post">
+			<input type="hidden" name="username" value="<{if isset($smarty.get.username)}><{$smarty.get.username}><{/if}>" />
+			开始页：<input type="text" name="page" value="1" /><br/><br/>
+			结束页：<input type="text" name="pageSize" value="255" /><br/><br/>
+			分类id：<input type="text" name="cateId" /><br/><br/>
+			产品名：<input type="text" name="keyword" size="50" /><br/><br/>
+			模糊匹配：
+			<input type="radio" name="is_dim" value="1"/>是
+			<input type="radio" name="is_dim" value="0" checked />否
+			<br/><br/>
+			<input type="submit" value="提交"/>
+			<input type="reset" value="重置"/>
+		</form>
+	</div>
+</div>
+
+
+
+
+

@@ -1,0 +1,21 @@
+/*可以在这里添加你自己的css*/
+/*文章添加产品*/
+.xgsp{width:100%}
+.border{border:1px #ccc solid;width:400px;padding:10px;}
+.xgsp h5.link-tit{color:#ccc;line-height:0}
+.xgsp img{width:25%; height:25%;}
+.xgsp a {width: 95%;background-color: #f5f5f5;padding:10px;}
+.link-m,.xgsp a,.xgsp a img{display:inline-block;vertical-align:middle}
+.link-m{width:100px}
+h6{display: block;-webkit-margin-before: .5em;-webkit-margin-after: 2em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;font-weight:normal;}
+.link-m h6{color:#444;line-height:16px;font-size:15px;width:284%;margin-left:10px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.link-m .price{font-size:13px;color:#ccc;line-height:5px;margin-left:10px;width:300px;}
+.link-m .star{width:200px;height:.75rem;margin-top:.3rem}
+.link-m .star i{width:28px;height:20px;margin-right:-10px;background-position:-3rem 0;background-size:67px auto;margin-left:10px}
+/*.xgsp a i.ico-r{width:.65rem;height:1.2rem;}*/
+.icon,.tj-box li{display:inline-block;vertical-align:middle}
+.icon{background:url(../images/sprite.png) no-repeat;background-size:1.925rem auto}
+
+
+
+

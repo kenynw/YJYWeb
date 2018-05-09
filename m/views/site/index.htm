@@ -1,0 +1,67 @@
+<{include file='../common/header.htm'}>
+
+<div class="index-ban">
+    <img class="ban-pic" src="<{$GLOBALS['static_path']}>h5/images/banner.jpg" alt="">
+    <h1><img src="<{$GLOBALS['static_path']}>h5/images/logo.png" height="46" width="437" alt="banner"></h1>
+    <div class="ban-label search-box">
+        <form action="product/search">
+            <i class="icon ico-ss"></i>
+            <input name="keyword" type="text" value="请输入产品名/功效" onfocus="if (value =='请输入产品名/功效'){value =''}" onblur="if (value ==''){value='请输入产品名/功效'}" />
+            <i class="icon ico-close"></i>
+        </form>
+    </div>
+    <dl class="hot-ss">
+        <dt>热搜：</dt>
+        <!-- <{if $searchList}> -->
+            <!--<{foreach key=key from=$searchList item=keyword }>-->
+                <dd><a href="/product/search?keyword=<{$keyword}>"><{$keyword}></a></dd>
+            <!--<{/foreach}>-->
+        <!--<{/if}>-->
+    </dl>
+</div>
+<ul class="classify">
+    <!-- <{if $cateList}> -->
+    <!--<{foreach key=key from=$cateList item=cate }>-->
+    <li>
+        <a href="/product/search?cateId=<{$cate['id']}>&cateName=<{$cate['cate_name']}>">
+            <img src="<{$GLOBALS['uploadsUrl']}><{$cate['cate_h5_img']}>" alt="">
+            <p><{$cate['cate_name']}></p>
+        </a>
+    </li>
+    <!--<{/foreach}>-->
+    <!--<{/if}>-->
+</ul>
+
+<h2 class="tit boxsize"><img src="<{$GLOBALS['static_path']}>h5/images/wntj.png"  alt="为你推荐"></h2>
+<ul class="tj-box">
+    <!--<{foreach key=key from=$productList item=product }>-->
+    <li class="boxsize">
+        <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="<{$product['product_name']}>">
+            <img src="<{$product['product_img']}>" alt="<{$product['product_name']}>">
+            <p class="ell"><{$product['product_name']}></p>
+            <span class="ell">参考价：
+            <!--<{if $product['price'] eq '0' or $product['form'] eq '0'}>-->
+                暂无报价
+            <!--<{else}>-->
+                ¥<{$product['price']}>／<{$product['form']}>
+            <!--<{/if}>-->
+            </span>
+            <div class="star">
+                <!--<{for $foo=1 to $product['star']}>-->
+                <i class="icon ico-star"></i>
+                <!--<{/for}>-->
+                <!--<{for $foo=1 to (5-$product['star']) }>-->
+                <i class="icon"></i>
+                <!--<{/for}>-->
+            </div>
+        </a>
+    </li>
+    <!--<{/foreach}>-->
+</ul>
+<a href="/site/download-guide" class="xz-txt mt-10">看完还想看？进入APP还有更多精彩内容哦&nbsp;&gt;&gt;</a>
+<{include file='../common/footer.htm'}>
+<script>
+    $('.ban-label').find('form').submit(function(){
+        $(this).find('input').blur();
+    });
+</script>

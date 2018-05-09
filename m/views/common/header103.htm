@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title><{if isset($GLOBALS['title']) }><{$GLOBALS['title']}><{else}>颜究院<{/if}></title>
+    <meta name="keywords" content="<{if isset($GLOBALS['keywords']) }><{$GLOBALS['keywords']}><{else}>颜究院<{/if}>"/>
+    <meta name="description" content="<{if isset($GLOBALS['description']) }><{$GLOBALS['description']}><{else}>颜究院<{/if}>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>h5/v103/css/style.min.css"/>
+</head>
+<body <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'index' }>class="index-page"<{/if}>>
+<!-- 头部 -->
+<header>
+   <div class="downl-box">
+        <a href="javascript:;" class="logo">颜究院，科学护肤神器</a>
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="downl">立即下载</a>
+   </div>
+   <ul class="top-menu">
+    <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] != 'index' }>
+        <li>
+            <a href="/">返回<br>首页</a>
+        </li>
+    <{/if}>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'product' }>class="active"<{/if}> >
+            <a   href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>'56'])}>">产品<br>大全</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'article' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/list'])}>">护肤<br>知识</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'ask' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['ask/index'])}>">热门<br>问答</a>
+        </li>
+        <li <{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'tool' }>class="active"<{/if}>>
+            <a href="<{Yii::$app->urlManager->createUrl(['tool/cosmetics'])}>">批号<br>查询</a>
+        </li>
+   </ul>
+</header>

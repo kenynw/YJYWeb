@@ -1,0 +1,13 @@
+<!-- 热门文章 -->
+<{if $RecommendArticle}>
+<section class="hot-article mb-20">
+    <h3 class="h3">热门文章<a href="<{Yii::$app->urlManager->createUrl(['article/list'])}>">更多&nbsp;<i>+</i></a></h3>
+    <ul>
+    <{foreach key=key from=$RecommendArticle item=Article }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/index','id'=>$Article['id']])}>"><span class="ell tit"><{$Article['title']}></span><span class="time"><{$Article['created_at']}></span></a>
+        </li>
+    <{/foreach}>  
+    </ul>
+</section>
+<{/if}>

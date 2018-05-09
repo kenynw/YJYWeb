@@ -1,0 +1,19 @@
+
+<!-- 推荐品牌 -->
+<div class="recommend-com-right recommend-other-right">
+    <h2 class="hd <{$class}>">查看其他护肤品品牌</h2>
+    <ul class="brand-ul clearfix">
+
+        <{if $recommendBrand }>
+        <{foreach key=key from=$recommendBrand item=brand }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brand['id'] ])}>" class="pic" target="_blank">
+                <img class="light" src="<{$GLOBALS['uploadsUrl']}><{$brand['img']}>" alt="<{if $brand['name']}><{stripslashes($brand['name'])}><{else}><{stripslashes($brand['ename'])}><{/if}>"/>
+            </a>
+            <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brand['id'] ])}>" class="name ell" target="_blank"><{if $brand['name']}><{stripslashes($brand['name'])}><{else}><{stripslashes($brand['ename'])}><{/if}></a>
+        </li>
+        <{/foreach}>
+        <{/if}>
+
+    </ul>
+</div>

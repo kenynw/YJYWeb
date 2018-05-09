@@ -1,0 +1,48 @@
+
+<{if $type == "product"}>
+
+    <ul class="clearfix">
+        <{if $list['list']}>
+            <!--产品列表-->
+            <{include file='../common/product_list.htm' list = $list['list'] type = 'index'}>
+        <{/if}>
+    </ul>
+
+<{elseif $type == "brand"}>
+
+    <ul class="clearfix">
+        <{if $list['list']}>
+        <{foreach key=key from=$list['list'] item=brand }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brand['id'] ])}>" title="<{$brand['name']}>" target="_blank">
+                <div class="div-img">
+                    <img class="light" src="<{$GLOBALS['uploadsUrl']}><{$brand['img']}>" alt="<{if $brand['name']}><{$brand['name']}><{else}><{$brand['ename']}><{/if}>"/>
+                </div>
+                <p class="ell"><{if $brand['name']}><{$brand['name']}><{else}><{$brand['ename']}><{/if}></p>
+            </a>
+        </li>
+        <{/foreach}>
+        <{/if}>
+    </ul>
+
+
+<{elseif $type == "article"}>
+
+    <ul class="clearfix">
+        <{if $list['list']}>
+        <{foreach key=key from=$list['list'] item=article }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="<{$article['title']}>" class="art-pic" target="_blank">
+                <img class="cp-img light" src="<{$GLOBALS['uploadsUrl']}><{$article['article_img']}>" alt="<{$article['title']}>">
+            </a>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="<{$article['title']}>" class="l-ell art-text" target="_blank"><{$article['title']}></a>
+            <span class="data-time"><{$Tools::HtmlDates($article['created_at'])}></span>
+        </li>
+        <{/foreach}>
+        <{/if}>
+    </ul>
+
+<{/if}>
+
+
+

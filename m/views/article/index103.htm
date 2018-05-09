@@ -1,0 +1,14 @@
+<{include file='../common/header103.htm'}>
+<!-- 文章详情 -->
+<section class="article-detail mb-20">
+    <h1><{$model['title']}></h1>
+    <p class="subtit"><span><{date('Y.m.d',$model['created_at'])}></span><span>颜究院</span></p>
+    <div class="article" id="j-article">
+        <{$model['content']}>
+    </div>
+</section>
+<!-- 热门文章 -->
+<{include file='../common/commonArticle.htm'}>
+<!-- 热门产品 -->
+<{include file='../common/commonProduct.htm'}>
+<{include file='../common/footer103.htm'}>

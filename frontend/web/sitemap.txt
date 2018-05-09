@@ -1,0 +1,5 @@
+http://www.yjyapp.com/sitemaps.txt
+http://www.yjyapp.com/sitemap1.txt
+http://www.yjyapp.com/sitemap2.txt
+http://www.yjyapp.com/sitemap3.txt
+http://www.yjyapp.com/sitemap4.txt

@@ -1,0 +1,182 @@
+        <div class="footer-box">
+            <div class="footer clearfix">
+                <div class="line line-1"></div>
+                <div class="line line-2"></div>
+                <div class="item item-1">
+                    <ul class="clearfix">
+                        <li><img class="down-app" src="<{$GLOBALS['static_path']}>pc/images/phone.png" alt=""/></li>
+                        <li>
+                            <div class="foot-ar">
+                                <h3 class="name">颜究院-科学高效护肤神器</h3>
+                                <p class="tips">提供专业的护肤品成分查询与分析、批号查询、肤质测试和护肤品推荐</p>
+                            </div>
+                        </li>
+                        <li><img class="ewm" src="<{$GLOBALS['static_path']}>pc/images/ewm-foot.png" alt=""/></li>
+                    </ul>
+                </div>
+                <div class="item item-2">
+                    <ul class="clearfix">
+                        <li><img class="down-app" src="<{$GLOBALS['static_path']}>pc/images/weix.png" alt=""/></li>
+                        <li>
+                            <div class="foot-ar">
+                                <h3 class="name">颜究院官方微信</h3>
+                                <p class="tips">关注你就能获得一个24小时 贴身护肤管家哦</p>
+                            </div>
+                        </li>
+                        <li><img class="ewm" src="<{$GLOBALS['static_path']}>pc/images/ewm-foot.jpg" alt=""/></li>
+                    </ul>
+                </div>
+                <p class="footer-bottom" style="">
+                    厦门爱游米科技网络公司 2017  ICP备14027177 http://www.yjyapp.com 版权所有 <a href="/sitemap.txt" target="_blank" style="color:#B2B2B2">网站地图</a>
+                    <!-- <{if $this->context->id == 'site' && $this->context->action->id == 'index'}> -->
+                    <br/>友情链接：<a  href="http://www.yjyapp.com"  target="_blank" style='color:#B2B2B2'>化妆品推荐</a>&nbsp;<a  href="http://www.ifumm.com/"  target="_blank" style='color:#B2B2B2'>面膜代理</a>&nbsp;<a  href="http://www.meixiangba.com"  target="_blank" style='color:#B2B2B2'>行业资讯</a>&nbsp;<a  href="http://www.70j70j.com"  target="_blank" style='color:#B2B2B2'>找情人</a>
+                    <!-- <{/if}> -->
+                </p>
+            </div>
+        </div>
+        <!-- 侧边-->
+        <div class="service-suspend">
+            <ul class="clearfix">
+                <li>
+                    <a class="down-app" href="javascript:;" title="" target="_self"></a>
+                    <div class="item code code-phone"></div>
+                </li>
+                <li>
+                    <a class="code" href="javascript:;" title="" target="_self"></a>
+                    <div class="item code"></div>
+                </li>
+                <li>
+                    <a class="to-top" href="javascript:;" onclick="pageScroll()" title="" target="_self"></a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
+<script src="<{$GLOBALS['static_path']}>pc/js/yjy_pc.min.js"></script>
+<{$GLOBALS['statisticalCode']}>
+<script>
+    //搜索提交、判断是否为空
+    $("form").submit(function(){
+        var title = $.trim($("#keyword").val());
+        var url = "<{$this->context->id}>/<{$this->context->action->id}>";
+        if(title == "" && url != "product/index"){
+            $("#keyword").focus();
+            return false;
+        }
+    });
+
+    //产品，文章联想词搜索
+    $(function () {
+
+        //失去焦点 -- 隐藏弹框、清空数据
+        $("#keyword").blur(function(){
+            setTimeout(function(){
+                $(".guess-box-con").hide().html("");
+                $(".guess-index-box").hide().html("");
+            },200)
+        })
+
+        $("#keyword").on("keyup focus",function () {
+            var title = $.trim($("#keyword").val());
+            var type = $(this).attr("data-type");
+            var url = "<{$this->context->id}>/<{$this->context->action->id}>";
+
+			if (title != "") {
+			
+			    //显示展示div,把它清空
+				$(".guess-box-con").show().html("");
+				$(".guess-index-box").show().html("");
+			
+				$.ajax({
+					url: '<{Yii::$app->urlManager->createUrl("base/ajax-data")}>',
+					type: "GET",
+					async: false,
+					data: {title:title,type:type},
+					dataType: "json",
+					success: function(result) {
+                        var guess_c = "";
+                        if(result.status == 0 || ($.isEmptyObject(result.msg.brand) && $.isEmptyObject(result.msg.product))){
+                            $(".guess-box-con").addClass("border-none");
+                            $(".guess-index-box").addClass("pad-no");
+                        }else{
+                            $(".guess-box-con").removeClass("border-none");
+                            $(".guess-index-box").removeClass("pad-no");
+
+                            if(type == "product-search"){
+                                //品牌列表
+                                if(!$.isEmptyObject(result.msg.brand)){
+                                    guess_c += '<div class="pro-ku">';
+                                    guess_c += '<a href="/brand/' + result.msg.brand.id + '.html" title="" target="_blank" class="clearfix">';
+                                    guess_c += '<img class="pro-ku-img" src="<{$GLOBALS["uploadsUrl"]}>' + result.msg.brand.img + '" alt=""/>';
+                                    guess_c += '<span class="pro-ku-name">进入 ' + result.msg.brand.name + '品牌库 ></span>';
+                                    guess_c += '</a></div>';
+                                }
+
+                                //产品名列表
+                                for(var i=0;i<result.msg.product.length;i++){
+                                    guess_c += '<a href="/product/' + result.msg.product[i].id + '.html" class="pro-link" target="_blank">' + result.msg.product[i].product_name + '</a>';
+                                }
+
+                            }else if(type == "article-search"){
+                                //文章名列表
+                                for(var i=0;i<result.msg.article.length;i++){
+                                    guess_c += '<a href="/article/' + result.msg.article[i].id + '.html" class="ell" target="_blank">' + result.msg.article[i].title + '</a>';
+                                }
+                            }
+							
+							$(".guess-index-box").append(guess_c);
+                        }
+
+                    }
+				});
+			}
+        });
+
+    });
+    //推荐产品，推荐文章切换
+    $(document).on("click",'.btn-box-slide',function(){
+        var page = parseInt($(this).attr("data-page"));
+        var type = $(this).attr("data-type");
+        var url = '<{Yii::$app->urlManager->createUrl("base/ajax-data")}>';
+        var _this = $(this);
+        var max_page = parseInt($(this).attr("data-max-page"));
+        var id = "<{if isset($smarty.get.id)}><{$smarty.get.id}><{/if}>";
+
+        if((page <= 2) && (page < max_page)){
+            page++;
+        }else{
+            page = 1;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {page:page,type:type,id:id},
+            dataType: "json",
+            cache: false,
+            success: function(result) {
+                //内容
+                _this.prev().html(result);
+                _this.attr("data-page",page);
+
+                /*文章右侧切换*/
+                slidebar.slide_toggle();
+            },
+        });
+    });
+    //seo 自动推送
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+

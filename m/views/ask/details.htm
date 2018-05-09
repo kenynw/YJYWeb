@@ -1,0 +1,35 @@
+<{include file='../common/header103.htm'}>
+<!-- 问答详情 -->
+<section class="qanda-detail mb-20">
+    <div class="question-detail mb-20">
+        <{if $askReplyList}>
+        <a href="/product/details?id=<{$askReplyList['product_id']}>" class="pro">
+            <img src="<{$askReplyList['product_img']}>" alt="">
+            <span class="ell tit"><{$askReplyList['product_name']}></span>
+            <span class="left"></span>
+        </a>
+        <{/if}>
+        <p class="ptitle"><i>问</i><{$askReplyList['subject']}></p>
+    </div>
+    <div class="answer-detail mb-20">
+        <p class="ptitle"><i>答</i>共<{$askReplyList['num']}>条回答</p>
+        <ul>
+            <{foreach key=key from=$askReplyList['question_list'] item=val }>
+            <li>
+                <img src="<{$val['user_img']}>" alt="">
+                <p class="name ell"><{$val['username']}></p>
+                <p class="time"><{$val['add_time']}></p>
+                <p class="con"><{$val['reply']}></p>
+            </li>
+            <{/foreach}>
+        </ul>
+    </div>
+    <div class="btn-box">
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>">下载app，<span>向用过的人提问</span></a>
+    </div>
+</section>
+
+<{include file='../common/commonProduct.htm'}>
+<{include file='../common/commonArticle.htm'}>
+
+<{include file='../common/footer103.htm'}>

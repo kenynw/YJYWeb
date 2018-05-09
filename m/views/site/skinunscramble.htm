@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解读说明</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/yjy.css">
+</head>
+<body>
+<div class="mod-main">
+    <div class="mod-box">
+        <h3 class="title">安全风险</h3>
+        <p class="info">分值从0-9，数字越大表示风险越高。<i class="i-green"></i>表示安全，
+            <i class="i-orange"></i>表示中等，<i class="i-red"></i>表示风险。</p>
+    </div>
+    <div class="mod-box">
+        <h3 class="title">活性成分</h3>
+        <p class="info">有<i class="i-good"></i>标志表示有对皮肤有益的活性成分，UVA和UVB表示防紫外线。</p>
+    </div>
+    <div class="mod-box">
+        <h3 class="title">致痘风险</h3>
+        <p class="info">有<i class="i-notice"></i>标志表示有导致粉刺的风险。</p>
+    </div>
+    <div class="mod-box">
+        <h3 class="title">其他提醒</h3>
+        <p class="info">
+            1.点击每个成分，可以查看该成分的详细解说。<br/>
+            2.标签中成分表按照含量降序排列，含量越大越靠前，含量越小越靠后。如果成分含量小于或等于1%可以在含量大于1%的成分后面按任意顺序排列。<br/>
+            3.由于有些产品在每个地区产生的配方不是完全一致，因此可能导致不同国家购买的同一款商品成分有所不同。<br/>
+            颜究院APP上的数据是与国家食品药品监督管理局
+            的数据一致，如有发现错误，请及时提出。
+        </p>
+    </div>
+</div>
+<script>
+        (function (window, document) {
+            (function () {
+                var viewportEl = document.querySelector('meta[name="viewport"]'), hotcssEl = document.querySelector('meta[name="hotcss"]'), dpr = window.devicePixelRatio || 1;
+                if (hotcssEl) {
+                    var hotcssCon = hotcssEl.getAttribute("content");
+                    if (hotcssCon) {
+                        var initialDpr = hotcssCon.match(/initial\-dpr=([\d\.]+)/);
+                        if (initialDpr) {
+                            dpr = parseFloat(initialDpr[1])
+                        }
+                    }
+                }
+                var scale = 1, content = "width=device-width, initial-scale=" + scale + ", minimum-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no";
+                if (viewportEl) {
+                    viewportEl.setAttribute("content", content)
+                } else {
+                    viewportEl = document.createElement("meta");
+                    viewportEl.setAttribute("name", "viewport");
+                    viewportEl.setAttribute("content", content);
+                    document.head.appendChild(viewportEl)
+                }
+            })();
+            var hotcss = {};
+            hotcss.px2rem = function (px, designWidth) {
+                if (!designWidth) {
+                    designWidth = parseInt(hotcss.designWidth, 10)
+                }
+                return parseInt(px, 10) * 375 / designWidth / 20
+            };
+            hotcss.mresize = function () {
+                var innerWidth = window.innerWidth;
+                if (!innerWidth) {
+                    return false
+                }
+                document.documentElement.style.fontSize = (innerWidth * 20 / 375) + "px"
+            };
+            hotcss.mresize();
+            window.addEventListener("resize", hotcss.mresize, false);
+            window.addEventListener("load", hotcss.mresize, false);
+            setTimeout(function () {
+                hotcss.mresize()
+            }, 300);
+            window.hotcss = hotcss
+        })(window, document);
+    </script>
+    <{$GLOBALS['statisticalCode']}>
+</body>
+</html>

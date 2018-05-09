@@ -1,0 +1,18 @@
+            <section class="item-box master-box" id="j-master">
+                <h3>最热达人</h3>
+                <div class="swiper-container hot-master">
+                    <div class="swiper-wrapper">
+                        <!--<{foreach key=key from=$hotPerson item=person }>-->
+                            <div class="swiper-slide">
+                                <a href="javascript:;">
+                                    <img src="<{$person['img']}>" title="" alt="">
+                                    <div class="slide-info">
+                                        <p class="title"><{$person['username']}></p>
+                                    </div>
+                                    <span class="enter-btn" data-num="<{$person['follow_num']}>">+ 关注</span>
+                                </a>
+                            </div>
+                        <!--<{/foreach}>-->
+                    </div>
+                </div>
+            </section>

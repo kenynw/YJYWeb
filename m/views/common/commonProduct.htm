@@ -1,0 +1,21 @@
+<!-- 热门产品 -->
+<{if $RecommendProduct}>
+<section class="hot-product mb-20">
+    <h3 class="h3">热门产品
+    <a href="<{Yii::$app->urlManager->createUrl(['product/search'])}>?cateId=<{if isset($cate_id) }><{$cate_id}><{else}>56<{/if}>">更多&nbsp;<i>+</i></a></h3>
+    <ul class="pro-list clearfix">
+    <{foreach key=key from=$RecommendProduct item=Product }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$Product['id']])}>">
+                <img src="<{$Product['product_img']}>" alt="">
+                <span class="tit ell"><{$Product['product_name']}></span>
+                <span class="price ell">参考价：¥<{$Product['price']}>／<{$Product['form']}></span>
+                <span class="star">
+                   <span class="star-num" style="width:100%;"></span>
+                </span>
+            </a>
+        </li>
+    <{/foreach}> 
+    </ul>
+</section>
+<{/if}>

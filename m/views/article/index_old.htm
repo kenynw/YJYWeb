@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-title" content="颜究院"/>
+    <meta name="author" content="chendianhuai,XiaMen,773189176@qq.com">
+    <meta name="date" content="2017-01-09 11:57:59">
+    <meta name="copyright" content="Copyright (c) 2016 www.miguantech.com.">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta name="MobileOptimized" content="320">
+    <meta name="format-detection" content="telephone=no, address=no, email=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta  name="applicable-device"content="mobile">
+    <title><{if isset($GLOBALS['title']) }><{$GLOBALS['title']}><{else}>颜究院<{/if}></title>
+    <link rel="apple-touch-icon-precomposed" href=""/>
+    <!-- DNS预解析 常用于图片URL 静态资源URL -->
+    <link rel="dns-prefetch" href="//">
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>h5/css/common.min.css">
+</head>
+<body style="padding-bottom: 0;">
+    <article class="article boxsize" id="j-article">
+        <h2><{$model['title']}></h2>
+        <div class="article-ctit">
+            <span><{date('Y/m/d',$model['created_at'])}></span><span>颜究院</span>
+        </div>
+        <{$model['content']}>
+    </article>
+</body>
+<script src="<{$GLOBALS['static_path']}>h5/js/jquery-1.10.1.min.js"></script>
+<script src="<{$GLOBALS['static_path']}>h5/js/common.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: "<{$GLOBALS['jsApi']['APPID'] }>",
+        timestamp: "<{$GLOBALS['jsApi']['timestamp'] }>",//这个一定要与上面的php代码里的一样。
+        nonceStr: "<{$GLOBALS['jsApi']['noncestr'] }>",//这个一定要与上面的php代码里的一样。
+        signature: "<{$GLOBALS['jsApi']['signature'] }>",
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+    wx.ready(function(){
+        var title = "<{$GLOBALS['OfficialAccounts']['share']['title'] }>",   // 分享标题
+            desc = "<{$GLOBALS['OfficialAccounts']['share']['desc'] }>",   //分享描述
+            imgUrl = "<{$GLOBALS['OfficialAccounts']['share']['imgUrl'] }>"; // 分享图标
+
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            success: function () {},
+            cancel: function () {}
+        });
+
+        //发送给好友
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {},
+            cancel: function () {}
+        });
+    });
+</script>
+<{$GLOBALS['statisticalCode']}>
+<script>
+    //捕获url参数
+    function GetQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    if(GetQueryString("from")){
+        $("#j-article .xgsp a").attr("href","javascript:void(0)");
+    }
+</script>
+</html>

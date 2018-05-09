@@ -1,0 +1,203 @@
+<{include file='../common/header103.htm'}>
+<!-- 产品信息 -->
+<section class="product-box mb-20">
+    <img src="<{if $productDetails['product_img'] !='' }><{$GLOBALS['uploadsUrl']}><{$productDetails['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default.jpg<{/if}>" alt="<{$productDetails['product_name']}>" class="pro-img">
+    <p class="text">
+        <span class="tit"><{$productDetails['product_name']}></span>
+        <span class="price">
+        <!--<{if $productDetails['price'] eq '0' or $productDetails['form'] eq '0'}>-->
+                暂无报价
+        <!--<{else}>-->
+                ¥<{$productDetails['price']}>／<{$productDetails['form']}>
+        <!--<{/if}>--></span>
+    </p>
+    <div class="star">
+       <span class="star-num" style="width:<{$productDetails['star']*20}>%;"></span>
+    </div>
+</section>
+<!-- 产品综述  成分表 -->
+<section class="proinfo-detail mb-20" id="j-pro-tab">
+   <div class="pro-tab">
+        <span class="cur">综述<i></i></span>
+        <span>成分表<i></i></span>
+   </div>
+   <div class="detail-box summarize show">
+    <!-- <{if $function_list}> -->
+        <h3 class="h3">功效</h3>
+        <ul class="effect clearfix">
+        <!--<{foreach key=name from=$function_list item=num }>-->
+            <li data-name="<{$name}>" data-list="<{implode('、',$num)}>" data-num="<{count($num)}>"><{$name}>：&nbsp;<{count($num)}>种</li>
+        <!--<{/foreach}>-->
+        </ul>
+    <!-- <{/if}> -->
+
+    <!-- <{if $safe_list}> -->
+        <h3 class="h3">安全信息</h3>
+        <ul class="security clearfix">
+            <!--<{foreach key=name from=$safe_list item=num }>-->
+                <li data-name="<{$name}>" data-list="<{implode('、',$num)}>" data-num="<{count($num)}>"><{$name}>：&nbsp;<{count($num)}>种</li>
+            <!--<{/foreach}>-->
+        </ul>
+    <!-- <{/if}> -->
+
+    <!-- <{if ($productDetails['product_date'] neq '0') || ($productDetails['standard_number'] neq '') || ($productDetails['product_country'] neq '') || ($productDetails['product_company'] neq '') || ($productDetails['en_product_company'] neq '')}> -->
+        <h3 class="h3">备案信息</h3>
+        <!-- <{/if}> -->
+        <div class="txtbox">
+            <!-- <{if $productDetails['standard_number'] neq '' }> -->
+            <p><span>备案文号：</span><{$productDetails['standard_number']}></p>
+            <!-- <{/if}> -->
+            <!-- <{if $productDetails['product_country'] neq '' }> -->
+            <p><span>生产国：</span><{$productDetails['product_country']}></p>
+            <!-- <{/if}> -->
+            <!-- <{if $productDetails['product_company'] neq '' }> -->
+            <p><span>生产企业：</span><{$productDetails['product_company']}></p>
+            <!-- <{/if}> -->
+            <!-- <{if $productDetails['en_product_company'] neq '' }> -->
+            <p><span>生产企业(英)：</span><{$productDetails['en_product_company']}></p>
+            <!-- <{/if}> -->
+            <!-- <{if $productDetails['product_date'] neq '0' }> -->
+            <p><span>批准日期：</span><{date('Y-m-d',$productDetails['product_date'])}></p>
+            <!-- <{/if}> -->
+        </div>
+   </div>
+   <div class="detail-box component">
+       <h4></h4>
+       <table>
+           <caption>本产品共含有 <i><{count($componentList)}></i> 种成分</caption>
+           <thead>
+               <tr>
+                   <th>成分名称</th>
+                   <th>安全<br>风险</th>
+                   <th>活性<br>成分</th>
+                   <th>致痘<br>风险</th>
+                   <th>使用<br>风险</th>
+               </tr>
+           </thead>
+           <tbody>
+            <!-- <{if $componentList}> -->
+            <!--<{foreach key=key from=$componentList item=component }>-->
+            <tr>
+                <td><{$component['name']}></td>
+                <td>
+                    <{if $component['risk_grade'] == ""}>
+                    <{elseif $component['risk_grade'] <= 2}>
+                        <span class="td-green"><{$component['risk_grade']}></span>
+                    <{elseif $component['risk_grade'] <= 6}>
+                        <span class="td-orange"><{$component['risk_grade']}></span>
+                    <{else}>
+                        <span class="td-pink"><{$component['risk_grade']}></span>
+                    <{/if}>
+                </td>
+                <td><!--<{if $component['is_active'] eq '1'}>--><img src="<{$GLOBALS['static_path']}>h5/v103/images/smile.png" alt=""><!--<{/if}>--></td>
+                <td><!--<{if $component['is_pox'] eq '1'}>--><img src="<{$GLOBALS['static_path']}>h5/v103/images/Danger.png" alt=""><!--<{/if}>--></td>
+                <td><{$component['component_action']}></td>
+            </tr>
+            <!--<{/foreach}>-->
+            <!-- <{/if}> -->
+           </tbody>
+       </table>
+   </div>
+</section>
+<!-- 成分弹窗 -->
+<section class="component-box">
+    <div class="component-main">
+        <span class="close"><i></i></span>
+        <h3 id='component_str'>防腐剂成分共3种</h3>
+        <p>
+            <span>成分详情：</span>
+            <span class="ora" id='component_detail'>苯甲醇、苯氧乙醇、脱氢乙酸</span>
+        </p>
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="btn">在app中查看成分剖析 ></a>
+    </div>
+</section>
+<!-- 去比价 -->
+<section class="compare-price mb-20">
+    <h3 class="h3">去比价</h3>
+    <div class="link-box">
+    <!--<{foreach key=key from=$link_buy item=lb }>-->
+       <div class="own-pro clearfix">
+           <i class="slogo">京东</i>
+           <img src="<{$GLOBALS['uploadsUrl']}><{$productDetails['brand_img']}>" alt="">
+           <div class="pro">
+              <span class="name ell"><{$productDetails['brand_name']}></span>
+              <span class="price"><!-- <{if $lb['link_price']}> -->¥<{$lb['link_price']}><!--<{/if}>--></span>
+           </div>
+           <a href="<{$lb['url']}>"><!-- <{if $lb['type']==1}> -->淘宝<!--<{else}>-->京东<!--<{/if}>-->旗舰店&nbsp;&gt;</a>
+       </div>
+    <!--<{/foreach}>-->
+       <ul>
+           <li>
+               <a href="<{$buy['jd']}>">
+                   <img src="<{$GLOBALS['static_path']}>h5/v103/images/jd.jpg" alt="">
+                   <span class="name ell">京东</span>
+                   <span class="icon-go"></span>
+               </a>
+           </li>
+           <li>
+               <a href="<{$buy['amazon']}>">
+                   <img src="<{$GLOBALS['static_path']}>h5/v103/images/ymx.jpg" alt="">
+                   <span class="name ell">亚马逊</span>
+                   <span class="icon-go"></span>
+               </a>
+           </li>
+       </ul>
+    </div>
+</section>
+<!-- 评论 -->
+
+<section class="comment-box mb-20">
+    <h3 class="h3">评论</h3>
+    <!--<{if $ProductComment}>-->
+        <div class="comment-list">
+        <{foreach key=key from=$ProductComment item=Comment }>
+            <div class="list">
+                <img src="<{$Comment['user_img']}>" alt="">
+                <div class="con">
+                    <span class="name ell"><{$Comment['author']}></span>
+                    <p class="pl">
+                      <span><{$Comment['comment']}></span>
+                      <i class="icon-open"></i>
+                    </p>
+                </div>
+            </div>
+        <{/foreach}> 
+        </div>
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="dl-btn">下载app，<span>参与更多评论</span></a>
+    <!--<{else}>-->
+        <div class="empry-com">
+            <i></i>
+            <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>"><span>进入App，</span>消灭零回复</a>
+        </div>
+    <!--<{/if}>-->
+</section>
+
+<!-- 产品问答 -->
+<{include file='../common/commonAsk.htm'}>
+
+<!-- 热门产品 -->
+<{include file='../common/commonProduct.htm'}>
+
+<{include file='../common/footer103.htm'}>
+<script>
+//成分详情弹窗
+    $("#j-pro-tab li").on("click",function(){
+        var name = $(this).data('name');
+        var num = $(this).data('num');
+        var list = $(this).data('list');
+        var component_str = name+'成分共'+num+'种';
+        $("#component_str").text(component_str);
+        $("#component_detail").text(list);
+        if(num == 0){
+            return ;
+        }
+        $(".component-box").show();
+        var cfheight = $(".component-main .ora").height();
+        if(cfheight > 260){
+            $(".component-main .ora").addClass("ora-h");
+        }
+    });
+    $(".component-box .close").on("click",function(){
+        $(".component-box").hide();
+    });
+</script>

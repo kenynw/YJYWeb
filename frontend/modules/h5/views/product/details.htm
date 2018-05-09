@@ -1,0 +1,86 @@
+<{include file='../common/header.htm'}>
+
+<div class="data-pic">
+    <img class="ban-pic" src="<{$GLOBALS['uploadsUrl']}><{$productDetails['product_img']}>" alt="<{$productDetails['product_name']}>">
+    <p class="ell"><{$productDetails['product_name']}></p>
+    <span class="ell">参考价：
+        <!--<{if $productDetails['price'] eq '0' or $productDetails['form'] eq '0'}>-->
+                暂无报价
+        <!--<{else}>-->
+                ¥<{$productDetails['price']}>／<{$productDetails['form']}>
+        <!--<{/if}>-->
+    </span>
+    <div class="star">
+        <!--<{for $foo=1 to $productDetails['star']}>-->
+        <i class="icon ico-star"></i>
+        <!--<{/for}>-->
+    </div>
+</div>
+<ul class="tab-nav">
+    <li class="nav-act">
+        <p>综述</p>
+        <span></span>
+    </li>
+    <li>
+        <p>成分表</p>
+        <span></span>
+    </li>
+</ul>
+<div class="tab-content">
+    <div class="zs boxsize">
+        <!-- <{if $function_list}> -->
+        <h3>功效</h3>
+        <div class="gx">
+            <ul>
+                <!--<{foreach key=name from=$function_list item=num }>-->
+                    <li><{$name}> <{$num}>种</li>
+                <!--<{/foreach}>-->
+            </ul>
+        </div>
+        <!-- <{/if}> -->
+
+        <!-- <{if $safe_list}> -->
+        <h3>安全性</h3>
+        <ul class="aq boxsize">
+            <!--<{foreach key=name from=$safe_list item=num }>-->
+                <li><{$name}> <{$num}>种</li>
+            <!--<{/foreach}>-->
+        </ul>
+        <!-- <{/if}> -->
+
+        <h3>备案信息</h3>
+        <p><span>备案文号：</span><{$productDetails['standard_number']}></p>
+        <p><span>生产国：</span><{$productDetails['product_country']}></p>
+        <p><span>生产企业：</span><{$productDetails['product_company']}></p>
+    </div>
+    <div class="cfb boxsize">
+        <h4>本产品共含有<{count($componentList)}>种成分</h4>
+        <table border="1">
+            <thead>
+            <tr>
+                <th>成分名称</th>
+                <th>安全风险</th>
+                <th>活性成分</th>
+                <th>致痘风险</th>
+                <th>使用目的</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- <{if $componentList}> -->
+            <!--<{foreach key=key from=$componentList item=component }>-->
+            <tr>
+                <td><{$component['name']}></td>
+                <td><span><{$component['risk_grade']}></span></td>
+                <td><!--<{if $component['is_active'] eq '1'}>-->有<!--<{/if}>--></td>
+                <td><!--<{if $component['is_pox'] eq '1'}>-->是<!--<{/if}>--></td>
+                <td><{str_replace("，"," ",$component['component_action'])}></td>
+            </tr>
+            <!--<{/foreach}>-->
+            <!-- <{/if}> -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<{include file='../common/footer.htm'}>

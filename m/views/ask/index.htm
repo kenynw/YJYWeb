@@ -1,0 +1,23 @@
+<{include file='../common/header103.htm'}>
+<!-- 热门问答 -->
+<section class="product-QandA product-qa">
+    <div class="qa-box">
+    <{if $askList}>
+    <{foreach key=key from=$askList item=val }>
+        <a href="<{Yii::$app->urlManager->createUrl(['ask/details','id'=>$val['askid']])}>" class="list">
+            <span class="question ell-two"><i>问</i><{$val['subject']}></span>
+            <span class="answer">
+                <i>答</i>
+                <span class="ell-two"><{$val['reply']}></span>
+                <span class="link">查看<{$val['num']}>个问答</span>
+            </span>
+            <img src="<{$val['product_img']}>" alt="" class="proimg">
+        </a>
+    <{/foreach}>
+    <{/if}>
+    </div>
+	<{$pages}>
+    
+</section>
+<{include file='../common/footer103.htm'}>
+

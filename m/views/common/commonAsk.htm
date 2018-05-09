@@ -1,0 +1,22 @@
+<!-- 热门问答 -->
+<section class="product-QandA mb-20">
+<{if $RecommendAsk}>
+    <h3 class="h3"><{if Yii::$app->controller->id == 'product' && $this->context->action->id == 'details'}>产品问答<{else}>热门问答<{/if}>
+    <a href="<{Yii::$app->urlManager->createUrl(['ask/index'])}>">更多&nbsp;<i>+</i></a></h3>
+    <div class="qa-box">
+    <{foreach key=key from=$RecommendAsk item=Ask }>
+        <a href="<{Yii::$app->urlManager->createUrl(['ask/details','id'=>$Ask['askid']])}>" class="list">
+            <span class="question ell-two"><i>问</i><{$Ask['subject']}></span>
+            <span class="answer">
+                <i>答</i>
+                <span class="ell-two"><{$Ask['reply']}></span>
+                <span class="link">查看<{$Ask['num']}>个问答</span>
+            </span>
+            <{if Yii::$app->controller->id == 'product' && $this->context->action->id == 'details'}><span class="go"></span><{else}><img src="<{$Ask['product_img']}>" alt="" class="proimg"><{/if}>
+        </a>
+    <{/foreach}>     
+    </div>
+<{else}>
+	<a href="<{Yii::$app->urlManager->createUrl(['ask/index'])}>" class="empty-qa">点此查看热门问答&nbsp;></a>
+<{/if}>
+</section>

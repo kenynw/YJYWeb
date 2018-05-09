@@ -1,0 +1,9 @@
+{
+"AccessKeyID" : "LTAIIhvKhmXCxQ10",
+"AccessKeySecret" : "jS64AuGtNQ7jKLAXf5tdnhaaiXBwHY",
+"RoleArn" : "acs:ram::1484699240821675:role/yjyappwrite",
+"BucketName" : "oss1-yjyapp-com",
+"Endpoint" : "oss-cn-shenzhen.aliyuncs.com",
+"TokenExpireTime" : "900",
+"PolicyFile": "policy/all_policy.txt"
+}

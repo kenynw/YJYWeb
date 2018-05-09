@@ -1,0 +1,219 @@
+<{include file='../common/header.htm'}>
+<{include file='../common/header_bar.htm'}>
+
+<!-- 面包屑 -->
+<div class="crumbs">
+    <div class="main">
+        <a href="/">首页</a><span class="gt">&gt;</span><a href="<{Yii::$app->urlManager->createUrl('brand/index')}>">品牌库</a><span class="gt">&gt;</span><span>品牌详情页</span>
+    </div>
+</div>
+<!-- 内容部分 -->
+<div class="brand-detail-box">
+    <div class="main">
+        <!-- 品牌简介 -->
+        <div class="brand-intro clearfix">
+            <div class="intro-img">
+                <img src="<{$GLOBALS['uploadsUrl']}><{$details['img']}>" width="205px;">
+            </div>
+            <div class="intro-detail">
+                <h1><{stripslashes($details['ename'])}> <{stripslashes($details['name'])}></h1>
+                <p class="txt01"><span>品牌简介：</span><{stripslashes($details['description'])}></p>
+                <p class="txt02">收录产品数：<span><{$details['product_num']}></span>条</p>
+            </div>
+        </div>
+
+        <!--广告-->
+        <{include file='../common/advertisement.htm' list = $advertisementList['main1'] class = "ad-box" name = "main1"}>
+
+        <div class="brand-detail-main clearfix">
+            <!--左侧-->
+            <div class="brand-detail-left">
+                <!-- 产品排行榜 -->
+
+                <{if $brandList['list'] }>
+                    <div class="pro-ranklist">
+                        <h2><span class="icon-brand-detail-hd01"><{if $details['name']}><{stripslashes($details['name'])}><{else}><{stripslashes($details['ename'])}><{/if}>护肤品排行榜</span></h2>
+                        <ul class="rank-list">
+                            <{foreach key=key from=$brandList['list'] item=product }>
+                            <li>
+                                <div class="pro-top clearfix">
+                                    <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" class="pro-pic" target="_blank">
+                                        <span class="num">No.<{$key+1}></span>
+                                        <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>" class="">
+                                    </a>
+                                    <div class="pro-js">
+                                        <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" class="pro-name" target="_blank"><{$product['product_name']}></a>
+                                        <p class="pro-price">参考价：
+                                            <{if empty($product['price']) && empty($product['form'])}>
+                                                暂无报价
+                                            <{else}>
+                                                <{if !empty($product['price'])}>¥<{$product['price']}>
+                                                    <{if !empty($product['form'])}>／<{$product['form']}><{/if}>
+                                                <{/if}>
+                                            <{/if}>
+                                        </p>
+                                        <span class="star star<{$product['star']}>"></span>
+
+                                         <{if $product['tag']}>
+                                            <div class="pro-tag clearfix">
+                                                <span class="tag">TAG</span>
+                                                <{foreach key=key from=$product['tag'] item=tagname }>
+                                                    <a href="javascript:void(0)"><{$tagname}></a>
+                                                <{/foreach}>
+                                            </div>
+                                        <{/if}>
+
+                                    </div>
+                                </div>
+
+                                <{if $product['product_explain'] != ""}>
+                                    <div class="pro-bom">
+                                        <div class="head clearfix">
+                                            <img src="<{$GLOBALS['static_path']}>pc/images/brand-yan.png"><span><i>颜究院官方解读</i></span>
+                                        </div>
+                                        <div class="con"><{$product['product_explain']}></div>
+                                    </div>
+                                <{elseif $product['comment'] != ""}>
+                                    <div class="pro-bom">
+                                        <div class="head clearfix">
+                                            <img src="<{$GLOBALS['uploadsUrl']}><{$product['comment']['img']}>" width="42px;"><span><i><{$product['comment']['author']}></i>的评论</span><{if $product['comment']['is_digest'] == 1 }><em>精华</em><{/if}>
+                                        </div>
+                                        <div class="con"><a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['comment']['post_id']])}>" target="_blank"/><{nl2br($product['comment']['comment'])}></a></div>
+                                    </div>
+                                <{/if}>
+                            </li>
+                            <{/foreach}>
+                        </ul>
+                    </div>
+                <{/if}>
+
+                <!-- 品牌产品 -->
+                <{if $brandProduct['list']}>
+
+                    <div id="box22">
+                        <div class="brand-product">
+                            <h2><span class="icon-brand-detail-hd04"><{if $details['name']}><{stripslashes($details['name'])}><{else}><{stripslashes($details['ename'])}><{/if}>护肤品推荐及其产品价格表</span></h2>
+                            <div class="pro-box">
+                                <ul class="clearfix">
+
+                                    <!--产品列表-->
+                                    <{include file='../common/product_list.htm' list = $brandProduct['list'] type = 'details'}>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 分页 -->
+                        <div class="pages-item">
+                            <ul class="pagination">
+                                <{if $brandProduct['pageCount'] > 1 }>
+                                    <li class="prev disabled" data-page="<{if $brandProduct['page']-1 != 0}><{$brandProduct['page']-1}><{else}><{/if}>"><a href="javascript:void(0)">上一页</a></li>
+                                    <{for $foo=$brandProduct['min_page'] to $brandProduct['max_page'] }>
+                                        <li class="<{if $brandProduct['page'] == $foo }>active<{/if}>" data-page="<{$foo}>"><a href="javascript:void(0)" target=""><{$foo}></a></li>
+                                    <{/for}>
+                                    <li class="next" data-page="<{if $brandProduct['page'] < $brandProduct['pageCount']}> <{$brandProduct['page']+1}><{else}><{/if}>"><a href="javascript:void(0)">下一页</a></li>
+                                <{/if}>
+                            </ul>
+                        </div>
+                    </div>
+
+                <{/if}>
+
+                <!--广告-->
+                <{include file='../common/advertisement.htm' list = $advertisementList['main2'] class = "ad-mid-box" name = "main2"}>
+
+            </div>
+            <!--右侧 品牌文章 及 推荐 -->
+            <div class="brand-detail-right">
+                <!-- 品牌文章 -->
+                <{if $brandArticle['list'] }>
+                    <div class="recommend-com-right recommend-art-right">
+                        <h2 class="hd icon-brand-detail-hd02"><{if $details['name']}><{stripslashes($details['name'])}><{else}><{stripslashes($details['ename'])}><{/if}>资讯</h2>
+                        <ul class="pro-list">
+                            <{foreach key=key from=$brandArticle['list'] item=article }>
+                            <li>
+                                <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="" target="_blank" class="pro-name ell"><i class="icon-num-<{$key+1}>"></i><{$article['title']}></a>
+                                <div class="art-show">
+                                    <a href="<{Yii::$app->urlManager->createUrl(['article/details','id'=>$article['id'] ])}>" title="" target="_blank">
+                                        <img src="<{$GLOBALS['uploadsUrl']}><{$article['article_img']}>">
+                                        <span class="opacity-txt"><{$key+1}>.<{$article['title']}></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <{/foreach}>
+                        </ul>
+                        <{if $brandArticle['pageTotal'] > 5 }>
+                            <div class="btn-box" data-id="<{$details['id']}>" data-page="1" data-max-page="<{$brandArticle['pageCount']}>">下一页</div>
+                        <{/if}>
+                    </div>
+                <{/if}>
+
+                <!--推荐品牌-->
+                <{include file='../common/recommenb_brand.htm' class = "icon-brand-detail-hd03"}>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<{include file='../common/footer.htm'}>
+<script>
+
+    //品牌产品 - ajax分页跳转
+    $(document).on("click",'.pagination li',function(){
+        var id = "<{if isset($smarty.get.id)}><{$smarty.get.id}><{/if}>";
+        var page = $(this).attr("data-page");
+        var type = "product";
+        var url = '<{Yii::$app->urlManager->createUrl("brand/ajax-index-data")}>';
+        var _this = $(this);
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {page:page,id:id,type:type},
+            dataType: "json",
+            cache: false,
+            success: function(result) {
+                $("#box22").html(result);
+
+                window.location.hash = "#box22";
+                window.location = window.location;
+            },
+        });
+    });
+
+    //品牌文章 - ajax分页跳转
+    $(document).on("click",'.btn-box',function(){
+        var page = parseInt($(this).attr("data-page"));
+        var id = $(this).attr("data-id");
+        var url = '<{Yii::$app->urlManager->createUrl("brand/ajax-index-data")}>';
+        var _this = $(this);
+        var type = "article";
+        var max_page = parseInt($(this).attr("data-max-page"));
+
+        if(page < 3 && page < max_page){
+            page++;
+        }else{
+            page = 1;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {page:page,id:id,type:type},
+            dataType: "json",
+            cache: false,
+            success: function(result) {
+                //内容
+                _this.prev().html(result);
+                _this.attr("data-page",page);
+
+                /*文章右侧切换*/
+                slidebar.slide_toggle();
+            },
+        });
+    });
+
+</script>

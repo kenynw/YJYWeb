@@ -1,0 +1,114 @@
+<{include file='../common/header.htm'}>
+<{include file='../common/header_bar.htm'}>
+
+<!-- 面包屑 -->
+<div class="crumbs">
+    <div class="main">
+        <a href="/">首页</a>
+        <span class="gt">&gt;</span>
+        <a href="<{Yii::$app->urlManager->createUrl('article/index')}>">文章</a>
+
+        <{if $details['catelist']}>
+        <{foreach key=key from=$details['catelist'] item=cate }>
+            <span class="gt">&gt;</span>
+            <a href="<{Yii::$app->urlManager->createUrl(['article/index','cateId'=>$cate['id'] ])}>"><{$cate['cate_name']}></a>
+        <{/foreach}>
+        <{/if}>
+
+        <span class="gt">&gt;</span>
+        <span>文章详情</span>
+    </div>
+</div>
+
+<div class="article-content-box">
+    <div class="article-detail clearfix">
+
+        <div class="article-detail-le">
+            <div class="article-detail-le-box">
+                <div class="article-detail-le-top">
+                    <h1 class="article-detail-name"><{$details['title']}></h1>
+                    <p class="article-detail-data">
+                        <span class="data-time"><{date("Y-m-d H:i:s",$details['created_at'])}></span>
+                        <span class="data-author">颜究院</span>
+                    </p>
+                </div>
+                <div class="article-detail-le-con">
+                    <{$details['content']}>
+                    <!--<center><img src="<{$GLOBALS['static_path']}>pc/images/ewm-article.jpg" alt=""/></center>-->
+
+                    <{if $details['taglist'] || $details['tag_blist']}>
+                        <div class="item-tips">
+                            <ul class="clearfix ul-item-tips">
+                                <li><span>TAG</span></li>
+                                <{foreach key=key from=$details['taglist'] item=tag }>
+                                <li><a href="<{Yii::$app->urlManager->createUrl(['article/index','hotId'=>$tag['tagid'] ])}>" target="" title=""><{$tag['tagname']}></a></li>
+                                <{/foreach}>
+
+                                <{foreach key=key from=$details['tag_blist'] item=tagb }>
+                                <li><a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$tagb['id'] ])}>" target="_blank" title=""><{$tagb['name']}></a></li>
+                                <{/foreach}>
+                            </ul>
+                        </div>
+                    <{/if}>
+                </div>
+            </div>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['main1'] class = "left-ad" name = "main1"}>
+        </div>
+
+        <div class="article-detail-ri">
+            <div class="article-ri-carousel">
+                <div id="iFocus" style="margin:0 auto">
+                    <ul>
+                        <li><a href="<{Yii::$app->urlManager->createUrl('site/download')}>" target="_blank"><img src="<{$GLOBALS['static_path']}>pc/images/article-pic.jpg" /></a></li>
+                    </ul>
+                    <div class="btn">
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <!--快速导航-->
+            <div class="navigation navigation-margin">
+                <h2 class="hd icon-navigation">快速导航</h2>
+                <div class="bd">
+                    <ul class="clearfix">
+                        <{if $cateList}>
+                        <{foreach key=key from=$cateList item=cate }>
+                            <li><a href="<{Yii::$app->urlManager->createUrl(['article/index','cateId'=>$cate['id'] ])}>" target="_blank"><{$cate['cate_name']}> > </a></li>
+                        <{/foreach}>
+                        <{/if}>
+                    </ul>
+                </div>
+            </div>
+
+            <!--产品热词-->
+            <div id="tagscloud" class="tagscloud hot-words hot-words-margin">
+                <h2 class="hd icon-hot-worlds2">产品热词</h2>
+                <{if $productWord}>
+                <{foreach key=key from=$productWord item=word }>
+                <a href="<{Yii::$app->urlManager->createUrl(['product/index','keyword'=>$word ])}>" target="_blank" rel="nofollow"><{$word}></a>
+                <{/foreach}>
+                <{/if}>
+            </div>
+
+            <!-- 推荐产品 -->
+            <{include file='../common/recommenb_product.htm'}>
+        </div>
+    </div>
+</div>
+
+<script src="<{$GLOBALS['static_path']}>pc/js/zzsc.js"></script>
+<{include file='../common/footer.htm'}>
+<script>
+
+    //转换url
+    $(function(){
+        $(".article-detail-le-con .xgsp").each(function(){
+            var id = $(this).attr("data-id");
+            var url = '<{Yii::$app->urlManager->createUrl("product/details")}>' + '?id=' + id;
+            $(this).find("a").attr("href",url);
+        });
+    });
+
+</script>

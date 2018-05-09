@@ -1,0 +1,55 @@
+
+<{if $type == "comment"}>
+
+    <{if $commentList }>
+        <ul class="comment-ul">
+            <{foreach key=key from=$commentList item=list }>
+            <li class="clearfix">
+                <div class="user-tx">
+                    <img src="<{if !empty($list['img'])}><{$GLOBALS['uploadsUrl']}><{$list['img']}><{/if}>">
+                </div>
+                <div class="comment-con">
+                    <p class="hd"><span class="name"><{$list['username']}></span><{if $list['is_digest'] == 1 }><span class="jh">精华</span><{/if}></p>
+                    <div class="con">
+                        <p class="text"><{nl2br($list['comment'])}></p>
+                        <{if $list['attachment'] }>
+                        <img src="<{$GLOBALS['uploadsUrl']}><{$list['attachment']}>" alt="" class="comment-img">
+                        <{/if}>
+                        <{if !empty($list['second_list']) }>
+                        <div class="reply-comment">
+                            <{foreach key=key from=$list['second_list'] item=clist }>
+                            <div class="list clearfix">
+                                <img src="<{$GLOBALS['uploadsUrl']}><{$clist['img']}>" alt="">
+                                <span class="reply"><em class="yi"><{$clist['username']}>：@<{$clist['parent_author']}></em><{nl2br($clist['comment'])}></span>
+                            </div>
+                            <{/foreach}>
+                        </div>
+                        <{/if}>
+                    </div>
+                </div>
+            </li>
+            <{/foreach}>
+        </ul>
+
+        <{if count($commentList) >= 3}>
+            <div class="toapp"><a href="<{Yii::$app->urlManager->createUrl('site/download')}>" target="_blank">进入app参与更多评论 &gt;&gt;</a></div>
+        <{/if}>
+    <{/if}>
+
+<{elseif $type == "login"}>
+
+    <div id="login_container">微信登录</div>
+
+    <script>
+        var obj = new WxLogin({
+            id:"login_container",
+            appid: "<{$GLOBALS['weixinLogin']['APPID']}>",
+            scope: "snsapi_login",
+            redirect_uri: "http://www.yjyapp.com/site/login.html",
+            state: "200",
+            style: "",
+            href: ""
+        });
+    </script>
+
+<{/if}>

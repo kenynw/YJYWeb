@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="apple-itunes-app" content="app-id=1216109447, affiliate-data=myAffiliateData, app-argument=yjyapp">
+    <title>app测试</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <!-- DNS预解析 常用于图片URL 静态资源URL -->
+    <link rel="dns-prefetch" href="//">
+    <style type="text/css">
+        .dl-btn{width: 100px;height: 30px;line-height: 30px;text-align: center;display: block;margin:50px auto;background:#00a0de;color:#fff;font-size: 14px;}
+    </style>
+</head>
+<body>
+<a href="javascript:;" class="dl-btn" onclick="openAPP()" id="open_app">活动打开APP</a>
+<a href="javascript:;" class="dl-btn" onclick="openAPP1()" id="open_app1">产品打开APP</a>
+<a href="javascript:;" class="dl-btn" onclick="openAPP2()" id="open_app2">文章打开APP</a>
+<script type="text/javascript">
+//移动终端浏览器版本信息
+function browser(){
+    var version= function(){
+        var u = navigator.userAgent;
+        return {
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1, //android终端
+            wx: u.indexOf('MicroMessenger') > -1 //是否为微信内置浏览器
+        };
+    };
+    return version();
+}
+//唤醒app
+function openAPP(){
+    if (browser().ios) {
+        document.getElementById("open_app").setAttribute("href","https://m.yjyapp.com/asa/download?unltype=0&unlrelation=https://www.baidu.com");
+    }else if (browser().android) {
+       window.location = "https://m.yjyapp.com/asa/download?unltype=0&unlrelation=https://www.baidu.com";
+    }
+}
+//唤醒app
+function openAPP1(){
+    if (browser().ios) {
+        document.getElementById("open_app1").setAttribute("href","https://m.yjyapp.com/asa/download?unltype=1&unlrelation=377893");
+    }else if (browser().android) {
+       window.location = "https://m.yjyapp.com/asa/download?unltype=1&unlrelation=377893";
+    }
+}
+//唤醒app
+function openAPP2(){
+    if (browser().ios) {
+        document.getElementById("open_app2").setAttribute("href","https://m.yjyapp.com/asa/download?unltype=2&unlrelation=19");
+    }else if (browser().android) {
+       window.location = "https://m.yjyapp.com/asa/download?unltype=2&unlrelation=19";
+    }
+}
+</script>
+</body>
+</html>

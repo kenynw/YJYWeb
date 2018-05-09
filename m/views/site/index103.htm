@@ -1,0 +1,62 @@
+<{include file='../common/header103.htm'}>
+<!-- 搜索、轮播 -->
+<section class="search-banner mb-20">
+    <div class="search-box">
+    <form action="<{Yii::$app->urlManager->createUrl(['product/search'])}>">
+        <input type="text" name="keyword" placeholder="请输入产品名/功效" >
+        <input type="submit" class="sous">
+    </form>
+    </div>
+    <div class="tab clearfix">
+        <span>热搜:</span>
+        <!-- <{if $searchList}> -->
+            <!--<{foreach key=key from=$searchList item=keyword }>-->
+                <a href="<{Yii::$app->urlManager->createUrl(['product/search','keyword'=>$keyword])}>"><{$keyword}></a>
+            <!--<{/foreach}>-->
+        <!--<{/if}>-->
+    </div>
+    <div class="swiper-container swiper-box" id="j-swiper">
+        <div class="swiper-wrapper">
+        <{if $banner}>
+            <{foreach key=key from=$banner item=bar }>
+                <div class="swiper-slide">
+                    <{if $bar['url']}> <a href="<{$bar['url']}>"> <{/if}>
+                        <img src="<{$bar['img']}>">
+                    <{if $bar['url']}></a><{/if}>
+                </div>
+            <{/foreach}>
+        <{else}>
+            <div class="swiper-slide">
+                <img src="<{$GLOBALS['static_path']}>h5/v103/images/banner.jpg">
+            </div>
+        <{/if}>
+        </div>
+        <{if $banner && count($banner) > 1 }>
+            <div class="s-pagination"></div>
+        <{/if}>
+    </div>
+    <div class="fl-box">
+        <a href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>56])}>"><img src="<{$GLOBALS['static_path']}>h5/v103/images/face-img.png" alt=""></a>
+        <a href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>55])}>"><img src="<{$GLOBALS['static_path']}>h5/v103/images/body-img.png" alt=""></a>
+        <a href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>54])}>"><img src="<{$GLOBALS['static_path']}>h5/v103/images/cosmetics-img.png" alt=""></a>
+    </div>
+</section>
+<!-- 常见功效 -->
+<section class="common-effect mb-20">
+    <h3 class="h3">常见功效</h3>
+    <div class="effect-con clearfix">
+    <{foreach key=key from=$effectList item=effect }>
+        <a href="<{Yii::$app->urlManager->createUrl(['product/search','effectId'=>$effect['effect_id']])}>"><{$effect['effect_name']}></a>
+    <{/foreach}> 
+    </div>
+</section>
+<!-- 热门文章 -->
+<{include file='../common/commonArticle.htm'}>
+
+<!-- 热门问答 -->
+<{include file='../common/commonAsk.htm'}>
+
+<div class="dlbtn-box">
+    <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="btn"><i></i>下载颜究院 开启美肌革命</a>
+</div>
+<{include file='../common/footer103.htm'}>

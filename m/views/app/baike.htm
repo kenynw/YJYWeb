@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><{$baikeInfo['question']}></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/share.css">
+</head>
+<body>
+<div class="mod-main">
+    <div class="mod-question">
+        <ul>
+            <li>
+                <span class="title">Q：<{$baikeInfo['question']}></span>
+                <span class="info">
+                    <{$baikeInfo['content']}>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="relate-question">
+        <h3>相关问题</h3>
+        <ul>
+        <!--<{foreach from=$baikeRelation  key=key  item=baike}>-->
+            <li>
+                <a href="<{Yii::$app->urlManager->createUrl(['app/baike','id'=>$baike['id']])}>">
+                    <{$baike['question']}>
+                </a>
+            </li>
+        <!--<{/foreach}>-->
+        </ul>
+    </div>
+</div>
+<footer class="footer">
+    <div class="app-dl">
+        <img src="<{$GLOBALS['static_path']}>app/images/logo2.png"  alt="颜究院">
+        <a href="<{Yii::$app->params['downloadUrl']}>" class="btn">下载</a>
+        <i class="close" id="j-close"></i>
+    </div>
+</footer>
+<script>
+    (function (window, document) {
+        (function () {
+            var viewportEl = document.querySelector('meta[name="viewport"]'), hotcssEl = document.querySelector('meta[name="hotcss"]'), dpr = window.devicePixelRatio || 1;
+            if (hotcssEl) {
+                var hotcssCon = hotcssEl.getAttribute("content");
+                if (hotcssCon) {
+                    var initialDpr = hotcssCon.match(/initial\-dpr=([\d\.]+)/);
+                    if (initialDpr) {
+                        dpr = parseFloat(initialDpr[1])
+                    }
+                }
+            }
+            var scale = 1, content = "width=device-width, initial-scale=" + scale + ", minimum-scale=" + scale + ", maximum-scale=" + scale + ", user-scalable=no";
+            if (viewportEl) {
+                viewportEl.setAttribute("content", content)
+            } else {
+                viewportEl = document.createElement("meta");
+                viewportEl.setAttribute("name", "viewport");
+                viewportEl.setAttribute("content", content);
+                document.head.appendChild(viewportEl)
+            }
+        })();
+        var hotcss = {};
+        hotcss.px2rem = function (px, designWidth) {
+            if (!designWidth) {
+                designWidth = parseInt(hotcss.designWidth, 10)
+            }
+            return parseInt(px, 10) * 375 / designWidth / 20
+        };
+        hotcss.mresize = function () {
+            var innerWidth = window.innerWidth;
+            if (!innerWidth) {
+                return false
+            }
+            document.documentElement.style.fontSize = (innerWidth * 20 / 375) + "px"
+        };
+        hotcss.mresize();
+        window.addEventListener("resize", hotcss.mresize, false);
+        window.addEventListener("load", hotcss.mresize, false);
+        setTimeout(function () {
+            hotcss.mresize()
+        }, 300);
+        window.hotcss = hotcss;
+        /*关闭弹窗*/
+        document.querySelector("#j-close").onclick=function () {
+            document.querySelector(".footer").style.display="none";
+        }
+    })(window, document);
+</script>
+<{$GLOBALS['statisticalCode']}>
+</body>
+</html>

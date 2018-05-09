@@ -1,0 +1,26 @@
+<{include file='common/header.htm'}>
+
+<div id="login_container">微信登录</div>
+
+
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+
+<script>
+    var obj = new WxLogin({
+        id:"login_container",
+        appid: "wxfa8176ff5890131c",
+        scope: "snsapi_login",
+        redirect_uri: "http://www.yjyapp.com/site/login?content=hehe",
+        state: "",
+        style: "",
+        href: ""
+    });
+
+    obj.appid = '1111';
+
+
+
+</script>
+
+
+

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title><{$postInfo['title']}></title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/topic/css/style1.min.css" />
+    </head>
+    <body class="picDetails">
+        <div class="comment top">
+            <ul>
+                <li>
+                    <img src="<{$postInfo['user']['user_img']}>" alt="" class="headpic">
+                    <p class="js"><span class="name"><{$postInfo['user']['username']}></span><span class="age"><{$postInfo['user']['age']}>岁</span><span class="zan"><i></i>
+                    <!--<{if $postInfo['like_num']}>-->
+                            <{$postInfo['like_num']}>
+                    <!-- <{else}> -->
+                            赞
+                    <!-- <{/if}> -->
+                    </span></p>
+                    <p class="features"><{$postInfo['user']['skin']}></p>
+
+                </li>
+
+            </ul>
+        </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!--两个图片地址都要写，且一样-->
+                <!--<{foreach from=$postInfo['attachment']  key=key  item=attachment}>-->
+                    <div class="swiper-slide" style="background-image: url(<{$attachment}>);"><img src="<{$attachment}>" /></div>
+                <!--<{/foreach}>-->
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!---->
+        <div class="textCont">
+            <div class="title">
+                <i></i> <{$postInfo['title']}>
+            </div>
+            <p class="con">
+                <span><{$postInfo['content']}></span>
+                <i class="icon-open"></i>
+            </p>
+        </div>
+        <!--评论-->
+        <div class="comTitle">
+            评论
+        </div>
+        <div class="comment">
+            <!--<{if empty($commentList)}>-->
+            <div class="comment-empty" style='display: block;'>
+                <span class="img"></span>
+                <p>暂时还没有评论哦~</p>
+            </div>
+            <!-- <{else}> -->
+                <ul>
+                    <!--<{foreach from=$commentList item=comment}>-->
+                        <li>
+                            <img src="<{$comment['user']['img']}>" alt="" class="headpic">
+                            <p class="js"><span class="name"><{$comment['user']['username']}></span><span class="age"><{$comment['user']['age']}>岁</span><span class="zan"><i></i>
+                            <!--<{if $comment['like_num']}>-->
+                                <{$comment['like_num']}>
+                            <!-- <{else}> -->
+                                赞
+                            <!-- <{/if}> -->
+                                </span></p>
+                            <p class="features"><{$comment['user']['skin']}></p>
+                            <div class="con">
+                                <span><{$comment['comment']}></span>
+                                <i class="icon-open"></i>
+                            </div>
+                            <!--<{if $comment['reply']}>-->
+                                <div class="reply">
+                                    <span><{$comment['reply']['author']}></span>回复：<{$comment['reply']['comment']}>
+                                </div>
+                            <!-- <{/if}> -->
+                        </li>
+                    <!--<{/foreach}>-->
+                </ul>
+            <!--<{/if}>-->
+        </div>
+        <!--放大图片关闭按钮-->
+        <section class="imgzoom_pack">
+            <div class="imgzoom_x">X</div>
+            <div class="imgzoom_img"><img src="" /></div>
+        </section>
+        <script type="text/javascript" src="<{$GLOBALS['static_path']}>app/topic/js/js.min.js"></script>
+        <script>
+            var mySwiper = new Swiper('.swiper-container', {
+                // loop: true,
+                autoHeight: true,
+                //centeredSlides:true,
+                // 如果需要分页器
+                pagination: '.swiper-pagination',
+                paginationType: 'fraction',
+            })
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                ImagesZoom.init({
+                    "elem": ".swiper-wrapper"
+                });
+            }, false);
+        </script>
+    </body>
+</html>

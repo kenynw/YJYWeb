@@ -1,0 +1,68 @@
+
+<{if $type == 'index'}>
+
+    <{foreach key=key from=$list item=product }>
+    <li>
+        <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="<{$product['product_name']}>" target="_blank">
+            <div class="recommend-pro">
+                <div class="div-img">
+                    <img class="cp-img " src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>" alt="<{$product['product_name']}>">
+                </div>
+                <h3 class="cp-name ell"><span><{if $product['is_top'] == 1 }>【明星款】<{/if}></span><{$product['product_name']}></h3>
+                <p class="cp-price ell">参考价：
+                    <{if empty($product['price']) && empty($product['form'])}>
+                        暂无报价
+                    <{else}>
+                        <{if !empty($product['price'])}>¥<{$product['price']}>
+                            <{if !empty($product['form'])}>／<{$product['form']}><{/if}>
+                        <{/if}>
+                    <{/if}>
+                </p>
+                <div class="star star<{$product['star']}>"></div>
+            </div>
+
+            <{if isset($product['taglist']) && $product['taglist']}>
+            <div class="pro-mask">
+                <p>
+                    <{foreach key=key from=$product['taglist'] item=tag }>
+                        <span><{$tag}></span><{if $key+1 != count($product['taglist'])}>|<{/if}>
+                    <{/foreach}>
+                </p>
+            </div>
+            <{/if}>
+        </a>
+    </li>
+    <{/foreach}>
+
+<{elseif $type == "details"}>
+
+    <{foreach key=key from=$list item=product }>
+    <li>
+        <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" target="_blank" title="<{$product['product_name']}>" class="link-box">
+            <div class="product-img">
+                <img src="<{if $product['product_img'] !='' }><{$product['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>">
+            </div>
+            <p class="product-name ell"><{$product['product_name']}></p>
+            <p class="product-price ell">参考价：
+                <{if empty($product['price']) && empty($product['form'])}>
+                    暂无报价
+                <{else}>
+                    <{if !empty($product['price'])}>¥<{$product['price']}>
+                        <{if !empty($product['form'])}>／<{$product['form']}><{/if}>
+                    <{/if}>
+                <{/if}>
+            </p>
+            <span class="star star<{$product['star']}>"></span>
+
+             <{if isset($product['taglist']) && $product['taglist']}>
+            <div class="product-mask ell">
+                <{foreach key=key from=$product['taglist'] item=tag }>
+                    <span><{$tag}></span>
+                <{/foreach}>
+            </div>
+            <{/if}>
+        </a>
+    </li>
+    <{/foreach}>
+
+<{/if}>

@@ -1,0 +1,70 @@
+<{include file='../common/header103.htm'}>
+<!-- 护肤知识 -->
+<section class="skincare-box mb-20">
+    <div class="swiper-container tabspan" id="swiper-tab">
+       <div class="swiper-wrapper">
+            <{foreach key=key from=$ArticleCategory item=Acategory }>
+                <a href="<{Yii::$app->urlManager->createUrl(['article/list','cate_id'=>$Acategory['id']])}>" class="swiper-slide <{if $cate_id == $Acategory['id'] }>active<{/if}>"><{$Acategory['cate_name']}></a>
+            <{/foreach}> 
+        </div>
+    </div>
+    <{if $RecommendArticle}>
+        <div class="article-list">
+        <{foreach key=key from=$RecommendArticle item=Article }>
+            <div class="list">
+                <div class="txt-left">
+                    <a href="<{Yii::$app->urlManager->createUrl(['article/index','id'=>$Article['id']])}>" class="tit ell-thr"><{$Article['title']}></a>
+                    <p><span class="eyes"><i></i><{$Article['click_num']}></span><span class="time"><{$Article['created_at']}></span></p>
+                </div>
+                <div class="img-right">
+                    <a href="<{Yii::$app->urlManager->createUrl(['article/index','id'=>$Article['id']])}>"><img src="<{$Article['article_img']}>" alt=""></a>
+                </div>
+            </div>
+        <{/foreach}> 
+        </div>
+    <{/if}>
+        <{$pages}>
+</section>
+<!-- 热门产品 -->
+<{if $RecommendProduct}>
+<section class="hot-product mb-20">
+    <h3 class="h3">热门产品<a href="<{Yii::$app->urlManager->createUrl(['product/search','cateId'=>'56'])}>">更多&nbsp;<i>+</i></a></h3>
+    <ul class="pro-list clearfix">
+    <{foreach key=key from=$RecommendProduct item=Product }>
+        <li>
+            <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$Product['id']])}>">
+                <img src="<{$Product['product_img']}>" alt="">
+                <span class="tit ell"><{$Product['product_name']}></span>
+                <span class="price ell">参考价：¥<{$Product['price']}>／<{$Product['form']}></span>
+                <span class="star">
+                   <span class="star-num" style="width:100%;"></span>
+                </span>
+            </a>
+        </li>
+    <{/foreach}> 
+    </ul>
+</section>
+<{/if}>
+
+<!-- 热门问答 -->
+<{if $RecommendAsk}>
+<section class="product-QandA">
+    <h3 class="h3">热门问答<a href="<{Yii::$app->urlManager->createUrl(['ask/index'])}>">更多&nbsp;<i>+</i></a></h3>
+    <div class="qa-box">
+    <{foreach key=key from=$RecommendAsk item=Ask }>
+        <a href="<{Yii::$app->urlManager->createUrl(['ask/details','id'=>$Ask['askid']])}>" class="list">
+            <span class="question ell-two"><i>问</i><{$Ask['subject']}></span>
+            <span class="answer">
+                <i>答</i>
+                <span class="ell-two"><{$Ask['reply']}></span>
+                <span class="link">查看<{$Ask['num']}>个问答</span>
+            </span>
+            <img src="<{$Ask['product_img']}>" alt="" class="proimg">
+        </a>
+    <{/foreach}>     
+    </div>
+    <!-- <a href="javascript:;" class="empty-qa">点此查看热门问答&nbsp;></a> -->
+</section>
+<{/if}>
+
+<{include file='../common/footer103.htm'}>

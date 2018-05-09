@@ -1,0 +1,38 @@
+<{include file='../common/header.htm'}>
+<div class="article-box article" id="j-article">
+    <h1><{$model['title']}></h1>
+    <p class="sub-tit"><span><{date('Y/m/d',$model['created_at'])}></span><span>颜究院</span></p>
+    <{$model['content']}>
+</div>
+<!--<{if $RecommendArticle}>-->
+<h2 class="all-look-tit"><span>大家都在看</span></h2>
+<ul class="all-look">
+	<!--<{foreach key=key from=$RecommendArticle item=Article }>-->
+		<li><a href="<{Yii::$app->urlManager->createUrl(['article/index','id'=>$Article['id']])}>" class="ell"><{$Article['title']}></a></li>
+    <!--<{/foreach}>-->
+</ul>
+<!--<{/if}> -->
+<div class="tj-box-banner">
+	<a href="/site/button-click?id=4">
+		<img src="<{$GLOBALS['static_path']}>h5/images/wz-banner.png">
+	</a>
+</div>
+<!--<{if $ArticleProduct}>-->
+<ul class="tj-box bm-none">
+	<!--<{foreach key=key from=$ArticleProduct item=product }>-->
+		<li class="boxsize">
+			<a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$product['id']])}>" title="<{$product['product_name']}>">
+				<img src="<{$product['product_img']}>" alt="<{$product['product_name']}>">
+				<p class="ell"><{$product['product_name']}></p>
+				<span class="ell">参考价：¥<{$product['price']}>／<{$product['form']}></span>
+				<div class="star">
+					<!--<{for $foo=1 to $product['star']}>-->
+						<i class="icon ico-star"></i>
+					<!--<{/for}>-->
+				</div>
+			</a>
+		</li>
+	<!--<{/foreach}>-->
+</ul>
+<!--<{/if}> -->
+<{include file='../common/footer.htm'}>

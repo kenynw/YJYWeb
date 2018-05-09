@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title><{$videoInfo['title']}></title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/vedio.min.css"/>
+</head>
+<body>
+<div class="vedio-box">
+    <video width="100%" controls="controls" class="vedio" id="j-vedio" poster="<{$videoInfo['thumb_img']}>">
+        <source src="<{$videoInfo['video']}>" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+</div>
+<div class="tab-box">
+    <div class="tab" id="j-tab">
+        <span class="cur">视频内容<i></i></span>
+        <span>全部评论(<{$videoInfo['comment_num']}>)<i></i></span>
+    </div>
+    <div class="tab-content vedio-content active">
+        <div class="txt-box">
+            <p class="txt1"><{$videoInfo['title']}></p>
+            <p class="txt2"><{$videoInfo['desc']}></p>
+        </div>
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" class="dl-box">下载APP，查看更多变美的视频&gt;&gt;</a>
+        <!-- <{if !empty($videoInfo['products'])}>  -->
+        <div class="pro-box">
+            <h2>相关产品</h2>
+            <ul>
+                <!--<{foreach from=$videoInfo['products']  key=key  item=products}>-->
+                    <li>
+                        <a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$products['id']])}>">
+                            <img src="<{$products['product_img']}>" alt="<{$products['product_name']}>">
+                            <div class="info">
+                                <p class="name ell-two"><{$products['product_name']}></p>
+                                <span class="star"><span class="line" style="width: 80%"></span></span>
+                                <p class="price"><{$products['specifications']}></p>
+                            </div>
+                        </a>
+                    </li>
+                <!--<{/foreach}>-->
+            </ul>
+        </div>
+        <!-- <{/if}> -->
+    </div>
+    <div class="tab-content vedio-comment">
+        <!-- <{if empty($commentList)}>  -->
+        <div class="comment-empty" style='display: block'>
+            <span class="img"></span>
+            <p>暂时还没有评论哦~</p>
+        </div>
+        <!-- <{/if}> -->
+        <ul>
+            <!--<{foreach from=$commentList  key=key  item=comment}>-->
+                <li>
+                    <img src="<{$comment['user']['user_img']}>" alt="" class="headpic">
+                    <p class="js"><span class="name"><{$comment['user']['username']}></span><span class="age"><{$comment['user']['age']}>岁</span><span class="zan"><i></i><{if $comment['like_num']}><{$comment['like_num']}><{else}>赞<{/if}></span></p>
+                    <p class="features">
+                    <!--<{foreach from=$comment['user']['skin']  key=k  item=skin}>-->
+                       <!-- <{if $k == count($comment['user']['skin']) -1 }>  -->
+                            <{$skin}> 
+                        <!-- <{else}> -->
+                            <{$skin}> <span>|</span>
+                        <!-- <{/if}> -->
+                    <!--<{/foreach}>-->
+                    </p>
+                    <div class="con">
+                        <span><{$comment['comment']}></span>
+                        <i class="icon-open"></i>
+                    </div>
+                    <!-- <{if isset($comment['reply'])}> -->
+                        <div class="reply">
+                            <span><{$comment['reply']['author']}></span>回复：<{$comment['reply']['comment']}>
+                        </div>
+                    <!-- <{/if}> -->
+                </li>
+            <!--<{/foreach}>-->
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="<{$GLOBALS['static_path']}>app/js/video.min.js"></script>
+</body>
+</html>

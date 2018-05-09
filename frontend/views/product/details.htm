@@ -1,0 +1,421 @@
+<{include file='common/header.htm'}>
+<{include file='common/header_bar.htm'}>
+<link rel="stylesheet" href="<{$GLOBALS['static_path']}>pc/css/pro-detail.css">
+
+
+<!-- 面包屑 -->
+<div class="crumbs">
+    <div class="main">
+        <a href="/">首页</a><span class="gt">&gt;</span><a href="<{Yii::$app->urlManager->createUrl('product/index')}>">产品库</a><span class="gt">&gt;</span><span>产品详情</span>
+    </div>
+</div>
+<!-- 主要内容 -->
+<div class="pro-detail-box">
+    <div class="main clearfix">
+        <div class="pro-detail-left">
+            <!-- 详情介绍 -->
+            <div class="pro-detail clearfix">
+                <div class="pro-pic">
+                    <{if $productInfo['is_recommend'] == 1 }><span class="tj">推荐</span><{/if}>
+                    <img src="<{if $productInfo['product_img'] !='' }><{$GLOBALS['uploadsUrl']}><{$productInfo['product_img']}><{else}><{$GLOBALS['uploadsUrl']}>default-pc.jpg<{/if}>" alt="<{$productInfo['product_name']}>" class="">
+                </div>
+                <div class="pro-js">
+                    <h1 class="pro-name"><{$productInfo['product_name']}></h1>
+                    <p class="pro-price">参考价：
+                        <{if empty($productInfo['price']) && empty($productInfo['form'])}>
+                            暂无报价
+                        <{else}>
+                            <{if !empty($productInfo['price'])}>¥<{$productInfo['price']}>
+                                <{if !empty($productInfo['form'])}>／<{$productInfo['form']}><{/if}>
+                            <{/if}>
+                        <{/if}>
+                    </p>
+                    <span class="star star<{$productInfo['star']}>"></span>
+
+                    <{if $taglist}>
+                        <div class="pro-tag clearfix">
+                            <span class="tag">TAG</span>
+                            <{foreach key=name from=$taglist item=list }>
+                                <a href="javascript:void(0)"><{$list}></a>
+                            <{/foreach}>
+                        </div>
+                    <{/if}>
+
+                    <{if $position}>
+                        <{if $position == 10}>
+                            <span class="yinz icon-pro-yinz-10"></span>
+                        <{else}>
+                            <span class="yinz icon-pro-yinz-0<{$position}>"></span>
+                        <{/if}>
+                <{/if}>
+                </div>
+            </div>
+            <!-- 颜究院解读 -->
+            <{if $productInfo['product_explain']}>
+                <div class="yjy-jd">
+                    <h2><span>颜究院解读</span></h2>
+                    <div class="con">
+                        <p><{$productInfo['product_explain']}></p>
+                    </div>
+                </div>
+            <{/if}>
+
+            <!-- 成分分析 -->
+            <div class="pro-info-box">
+                <h2><span>成分分析</span></h2>
+
+                <!-- 安全性 -->
+                <{if $safe_list}>
+                <div class="txt-box txt-box1">
+                    <h3>安全性</h3>
+                    <{foreach key=name from=$safe_list item=list }>
+                        <p class="txt-cf clearfix">
+                            <span class="tit">含有<{$name}>成分：</span>
+                            <span class="con"><i class="num"><{count($list)}>种</i>
+                                <span class="a-box">
+                                    <{foreach key=id from=$list item=info }>
+                                        <a href="<{Yii::$app->urlManager->createUrl(['component/details','id'=>$id,'product_id'=>$smarty.get.id ])}>" class="cf" target="_blank"><{$info}></a>
+                                    <{/foreach}>
+                                </span>
+                            </span>
+                        </p>
+                    <{/foreach}>
+                </div>
+                <{/if}>
+
+                <!-- 功效性 -->
+                <{if $function_list}>
+                <div class="txt-box txt-box2">
+                    <h3>功效性</h3>
+                    <{foreach key=name from=$function_list item=list }>
+                    <p class="txt-cf clearfix">
+                        <span class="tit">含有<{$name}>成分：</span>
+                        <span class="con"><i class="num"><{count($list)}>种</i>
+                            <span class="a-box">
+                                <{foreach key=id from=$list item=info }>
+                                    <a href="<{Yii::$app->urlManager->createUrl(['component/details','id'=>$id,'product_id'=>$smarty.get.id ])}>" class="cf" target="_blank"><{$info}></a>
+                                <{/foreach}>
+                            </span>
+                        </span>
+                    </p>
+                    <{/foreach}>
+                </div>
+                <{/if}>
+
+                <!-- 成分表 -->
+                <div class="txt-box txt-box3">
+                    <h3>成份表</h3>
+                    <div class="cf-table">
+                        <table>
+                            <colgroup>
+                                <col width="215"></col>
+                                <col width="120"></col>
+                                <col width="120"></col>
+                                <col width="120"></col>
+                                <col width="170"></col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>成份名称</th>
+                                <th>安全<br>风险</th>
+                                <th>活性<br>成份</th>
+                                <th>致痘<br>风险</th>
+                                <th>使用<br>目的</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <{if $componentList}>
+                            <{foreach key=key from=$componentList item=component }>
+                                <tr>
+                                    <td><a href="<{Yii::$app->urlManager->createUrl(['component/details','id'=>$component['id'],'product_id'=>$smarty.get.id ])}>" target="_blank"><{$component['name']}></a></td>
+                                    <td>
+                                        <{if $component['risk_grade'] == ""}>
+                                        <{elseif $component['risk_grade'] <= 2}>
+                                        <i class="green"><{$component['risk_grade']}></i>
+                                        <{elseif $component['risk_grade'] <= 6}>
+                                        <i class="yellow"><{$component['risk_grade']}></i>
+                                        <{else}>
+                                        <i class="red"><{$component['risk_grade']}></i>
+                                        <{/if}>
+                                    </td>
+                                    <td><{if $component['is_active'] eq '1'}><span class="icon-pro-sicon01"></span><{/if}></td>
+                                    <td><{if $component['is_pox'] eq '1'}><span class="icon-pro-sicon02"></span><{/if}></td>
+                                    <td><{str_replace("，"," ",$component['component_action'])}></td>
+                                </tr>
+                            <{/foreach}>
+                            <{/if}>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <{if count($componentList) > 6}>
+                        <div class="btn-up-down">
+                            <span>展开成分表</span><i class="icon-pro-down"></i>
+                        </div>
+                    <{/if}>
+
+                </div>
+
+                <!-- 备案信息 -->
+                <{if ($productInfo['product_date'] neq '0') || ($productInfo['standard_number'] neq '') || ($productInfo['product_country'] neq '') || ($productInfo['product_company'] neq '') || ($productInfo['en_product_company'] neq '')}>
+                    <div class="txt-box txt-box4">
+                        <h3>备案信息</h3>
+                        <{if $productInfo['product_name'] neq '' }>
+                            <p>产品名：<{$productInfo['product_name']}></p>
+                        <{/if}>
+                        <{if $productInfo['standard_number'] neq '' }>
+                            <p>备案文号：<{$productInfo['standard_number']}></p>
+                        <{/if}>
+                        <{if $productInfo['product_country'] neq '' }>
+                            <p>生产国：<{$productInfo['product_country']}></p>
+                        <{/if}>
+                        <{if $productInfo['product_company'] neq '' }>
+                            <p>生产企业：<{$productInfo['product_company']}></p>
+                        <{/if}>
+                        <{if $productInfo['product_date'] neq '0' }>
+                            <p>批准日期：<{date('Y-m-d',$productInfo['product_date'])}></p>
+                        <{/if}>
+                    </div>
+                <{/if}>
+
+            </div>
+
+            <!-- 用户评论 -->
+            <div class="user-comment-box" name="comment" id="comment">
+                <h2><span>用户评论（共<a id="comment_num"><{count($commentList)}></a>条）</span></h2>
+                <div class="comment-box clearfix">
+                    <div class="user-tx">
+                        <img src="<{if $userinfo}><{$GLOBALS['uploadsUrl']}><{$userinfo['img']}><{else}><{$GLOBALS['static_path']}>pc/images/brand-yan.png<{/if}>">
+                    </div>
+
+                    <div class="textarea-box">
+                        <textarea placeholder="我用过，我要点评" maxlength="200" name="comment"></textarea>
+                        <span class="num"><i>200</i>/200字</span>
+                    </div>
+
+                    <div class="pl-box">
+                        <div class="pl-btn">
+                            <div class="filebox">
+                                <span class="filebg"></span>
+                                <input type="file" name="inpfile" class="inputfile" id="inpfile">
+                                <input name="image" type="hidden">
+                                <input name="_csrf" type="hidden" id="_csrf" value="<{Yii::$app->request->csrfToken }>">
+                            </div>
+                            <{if $userinfo}>
+                                <a href="javascript:void(0);" class="comment-btn" data-type="comment">发表评论</a>
+                            <{else}>
+                                <a href="javascript:void(0);" class="comment-btn login-btn" data-type="login">登录</a>
+                            <{/if}>
+                        </div>
+                        <div class="viewimg">
+                            <i class="close"></i>
+                            <img src="" alt="" id="viewimg">
+                        </div>
+                        <div id="info"></div>
+                    </div>
+
+                    <div class="code-mask code-shade"></div>
+                    <div class="code-con code-shade">
+                        <span class="close icon-pro-com-close"></span>
+                        <center id="weixin-login"></center>
+                    </div>
+                </div>
+
+                <div id="comment-box">
+                    <{if $commentList }>
+                        <ul class="comment-ul">
+                            <{foreach key=key from=$commentList item=list }>
+                                <li class="clearfix">
+                                    <div class="user-tx">
+                                        <img src="<{$list['user']['user_img']}>">
+                                    </div>
+                                    <div class="comment-con">
+                                        <p class="hd"><span class="name"><{$list['user']['username']}></span><{if $list['is_digest'] == 1 }><span class="jh">精华</span><{/if}></p>
+                                        <div class="con">
+                                            <p class="text"><{nl2br($list['comment'])}></p>
+                                            <{if $list['attachment'] }>
+                                                <img src="<{$list['attachment']}>" alt="" class="comment-img">
+                                            <{/if}>
+                                            <{if !empty($list['reply']) }>
+                                                <div class="reply-comment">
+                                                    <{foreach key=key from=$list['reply'] item=clist }>
+                                                        <div class="list clearfix">
+                                                            <img src="<{$clist['user_img']}>" alt="">
+                                                            <span class="reply"><em class="yi"><{$clist['author']}>：@<{$list['user']['username']}></em><{nl2br($clist['comment'])}></span>
+                                                        </div>
+                                                    <{/foreach}>
+                                                </div>
+                                            <{/if}>
+                                        </div>
+                                    </div>
+                                </li>
+                            <{/foreach}>
+                        </ul>
+                    <{else}>
+                        <div class="comment-empty">留下你文字的痕迹~<i></i></div>
+                    <{/if}>
+
+                    <{if count($commentList) >= 3}>
+                        <div class="toapp"><a href="<{Yii::$app->urlManager->createUrl('site/download')}>" target="_blank">进入app参与更多评论 &gt;&gt;</a></div>
+                    <{/if}>
+
+                </div>
+
+            </div>
+
+
+            <!-- 同品牌/分类推荐产品 -->
+            <{if isset($recommendProduct['brand']['list']) || isset($recommendProduct['cate']['list']) }>
+                <div class="common-pro-box brand-product">
+                    <div class="line">
+                        <div class="con clearfix">
+                            <{if isset($recommendProduct['brand']['list']) }>
+                                <span class="cur"><i></i>同品牌推荐产品</span>
+                            <{/if}>
+
+                             <{if isset($recommendProduct['cate']['list']) }>
+                                <span><i></i>同分类推荐产品</span>
+                            <{/if}>
+                        </div>
+                    </div>
+
+                    <{if isset($recommendProduct['brand']['list']) }>
+                        <div class="pro-box">
+                            <ul class="clearfix">
+                                <!--产品列表-->
+                                <{include file='../common/product_list.htm' list = $recommendProduct['brand']['list'] type = 'details'}>
+                            </ul>
+                        </div>
+                    <{/if}>
+
+                    <{if isset($recommendProduct['cate']['list']) }>
+                        <div class="pro-box">
+                            <ul class="clearfix">
+                                <!--产品列表-->
+                                <{include file='../common/product_list.htm' list = $recommendProduct['cate']['list'] type = 'details'}>
+                            </ul>
+                        </div>
+                    <{/if}>
+
+                </div>
+            <{/if}>
+
+        </div>
+        <div class="pro-detail-right">
+            <!-- 品牌信息 -->
+            <{if $brandInfo}>
+                <div class="recommend-com-right recommend-brand-right">
+                    <h2 class="hd icon-pro-hd01"><{$productInfo['product_name']}>怎么样-详见<{if $brandInfo['name']}><{stripslashes($brandInfo['name'])}><{else}><{stripslashes($brandInfo['ename'])}><{/if}>品牌中心</h2>
+                    <a href="<{Yii::$app->urlManager->createUrl(['brand/details','id'=>$brandInfo['id'] ])}>" target="_blank">
+                        <div class="brand-box">
+                            <img src="<{$GLOBALS['uploadsUrl']}><{$brandInfo['img']}>">
+                            <p class="ell"><{if $brandInfo['name']}><{stripslashes($brandInfo['name'])}><{else}><{stripslashes($brandInfo['ename'])}><{/if}></p>
+                        </div>
+                        <p class="brand-js"><span>品牌简介：</span><{stripslashes($brandInfo['description'])}></p>
+                        <p class="brand-slnum"><span>收录产品数：</span><{$brandInfo['product_num']}>条</p>
+                    </a>
+                </div>
+            <{/if}>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['left1'] class = "recommend-ad" name = "left1"}>
+
+            <!-- 推荐文章 -->
+            <{include file='../common/recommenb_article.htm'}>
+
+            <!--文章热词-->
+            <div id="tagscloud"  class="tagscloud hot-words hot-words-margin">
+                <h2 class="hd icon-hot-worlds">文章热词</h2>
+                <{if $articleWord}>
+                    <{foreach key=key from=$articleWord item=article }>
+                        <a href="<{Yii::$app->urlManager->createUrl(['article/index','hotId'=>$article['tagid'] ])}>" target="_blank" rel="nofollow"><{$article['tagname']}></a>
+                    <{/foreach}>
+                <{/if}>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<{include file='common/footer.htm'}>
+<script src="<{$GLOBALS['static_path']}>pc/js/ajaxfileupload.js"></script>
+<script src="<{$GLOBALS['static_path']}>pc/js/zzsc.js"></script>
+<script src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+
+<script>
+
+    //图片异步上传
+    $(document).on("change",'#inpfile',function(){ //此处用了change事件，当选择好图片打开，关闭窗口时触发此事件
+
+        var url = '<{Yii::$app->urlManager->createUrl("product/ajax-upload-image")}>';
+        var csrfToken = $('#_csrf').val();
+        var _this = $(this);
+        var path = "<{$GLOBALS['uploadsUrl']}>";
+
+        $.ajaxFileUpload({
+            url:url,   //处理图片的脚本路径
+            data : {_csrf : csrfToken},
+            type: 'post',       //提交的方式
+            secureuri :false,   //是否启用安全提交
+            fileElementId :'inpfile',     //file控件ID
+            dataType : 'JSON',  //返回值类型，一般设置为json、application/json  这里要用大写  不然会取不到返回的数据
+            success : function (data){  //提交成功后自动执行的处理函数
+                $("input[name='image']").val(data);
+                $("#viewimg").attr("src",path + data);
+                $(".viewimg").show();
+
+            },
+            error: function(data, status, e){   //提交失败自动执行的处理函数
+                alert(e);
+            }
+        })
+    });
+
+    //登录- ajax
+    $(document).on("click",'.comment-btn',function(){
+
+        var url = '<{Yii::$app->urlManager->createUrl("product/ajax-index-data")}>';
+        var type = $(this).attr("data-type");
+        var comment = $("textarea[name='comment']").val();
+        var post_id = "<{if isset($smarty.get.id)}><{$smarty.get.id}><{/if}>";
+        var image = $("input[name='image']").val();
+
+        if(type == 'comment' && comment.length < 1){
+            alert("内容不能为空");
+            return false;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            data: {type:type,comment:comment,post_id:post_id,image:image},
+            dataType: "json",
+            cache: false,
+            success: function(result) {
+                if(type == 'comment'){
+                    $("#comment-box").html(result);
+
+                    $("textarea[name='comment']").val("");
+                    $("input[name='image']").val("")
+                    $("#viewimg").attr("src","");
+                    $(".viewimg").hide()
+
+                    $("#comment_num").html(parseInt( $("#comment_num").html()) + 1);
+
+                    $(".textarea-box .num i").text(200);
+
+                    $(".filebox").show();
+                }else{
+                    $(".code-shade").show();
+                    $("#weixin-login").html(result);
+                }
+            },
+        });
+
+    });
+
+</script>
+
+
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>商品历史价格</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="shortcut  icon" type="image/x-icon" href="" media="screen"  />
+    <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/historical/css/style.css"/>
+    <script src="<{$GLOBALS['static_path']}>app/historical/js/xtzj.min.js"></script>
+</head>
+<body style="overflow-x: hidden;background:#f5f5f5">
+    <div class="fir-contain">
+        <!-- 无数据 -->
+        <!-- <{if empty($couponInfo)}> -->
+        <div class="chart-loading">
+            暂无该商品历史价格信息...
+        </div>
+        <!-- <{else}> -->
+            <div class="coupon-name ell-two ">
+                <!-- <{if !empty($couponInfo['amountList'])}> -->
+                    <img class="yq-icon" src="<{$GLOBALS['static_path']}>app/historical/images/yq.png">
+                    <div class="name"><{$couponInfo['title']}></div>
+                <!-- <{else}> -->
+                    <div><{$couponInfo['title']}></div>
+                <!-- <{/if}> -->
+            </div>
+            <!-- 加载中 -->
+            <div class="chart-loading">
+                正在加载历史价格图...
+            </div>
+            <div class="chart-bod">
+                <div id="main"></div>
+                <div class="date-txt">(日期)</div>
+                <div class="date-price">(价格/元)</div>
+            </div>
+            <div class="warn-txt">注：可以放大查看，点击价格图转角处会显示该点价格</div>
+        <!-- <{/if}> -->
+        <!-- 领券购买 -->
+        <!-- <{if !empty($couponInfo['amountList'])}> -->
+        <div class="li-contain">
+            <div class="li-title">该商品可用优惠券</div>
+            <!--<{foreach from=$couponInfo['amountList']  key=key  item=coupon}>-->
+                <a href="<{Yii::$app->urlManager->createUrl(['app/historical-guide','id'=>$id])}>">
+                    <div class="lqgm-bg">
+                        <div class="price-num">¥<span class="num"><{$coupon}>元</span></div>
+                        <img class="lqgm-btn" src="<{$GLOBALS['static_path']}>app/historical/images/lqgm-btn.png">
+                    </div>
+                </a>
+            <!--<{/foreach}>-->
+        </div>
+        <!-- <{/if}> -->
+    </div>
+
+    <div class="sec-contain">
+        <div class="list-title"><span>最新折扣</span></div>
+        <!-- <{if !empty($list)}> -->
+            <!--<{foreach from=$list  key=key  item=goods}>-->
+                <a href="<{Yii::$app->urlManager->createUrl(['app/historical-guide','id'=>$goods['num_iid']])}>" class="list-item">
+                    <div class="item-left">
+                        <img src="<{$goods['pict_url']}>">
+                    </div>
+                    <div class="item-right">
+                        <div class="shop-name"><{$goods['nick']}></div>
+                        <div class="detail ell-two">
+                            <{$goods['title']}>
+                        </div>
+                        <div class="price-bod">
+                            <div class="bod-left">
+                                <span class="qhj-txt">券后价</span>
+                                <span class="qhj-rmb">¥<span class="qhj-num"><{$goods['voucherPrice']}></span></span>
+                            </div>
+                            <div class="bod-right">
+                                <div class="right-item"><{$goods['price']}>元 <span class="arr-right">></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <!--<{/foreach}>-->
+        <!-- <{/if}> -->
+    </div>
+    <div class="yyq-contain">
+        <a href="<{Yii::$app->urlManager->createUrl(['site/download-guide'])}>" ><img src="<{$GLOBALS['static_path']}>app/historical/images/yyq.png"></a>
+    </div>
+
+    <div class="footer">
+        Copyright 2017-2018 yjyapp.com,All right reserved.
+    </div>
+    
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        $.ajax({
+            type: 'get',
+            url: 'https://zhushou.huihui.cn/productSense?phu=//item.taobao.com/item.htm?id=<{$id}>&type=canvas',
+            success: function(resp){
+                var data = []
+                for(var i = 0; i < resp.priceHistoryData.list.length; i++) {
+                    var item = [(resp.priceHistoryData.list[i].time).substring(5), resp.priceHistoryData.list[i].price]
+                    data.push(item)
+                }
+                var myChart = echarts.init(document.getElementById('main'));
+
+                var dateList = data.map(function (item) {
+                    return item[0];
+                });
+                var valueList = data.map(function (item) {
+                    return item[1];
+                });
+                // 指定图表的配置项和数据
+                option = {
+                    title: {
+                        // text: 'Step Line'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        symbol: 'none',
+                        position:function(p){   //其中p为当前鼠标的位置
+                            return [p[0]-40, p[1]-50];
+                        },
+                        formatter: function (p) {
+                            return resp.priceHistoryData.list[p[0].dataIndex].time + '<br/>价格: ' + p[0].value
+                        },
+                        // formatter: '{b0}<br/>价格: {c0}',
+                        backgroundColor : 'rgba(255,221,221,0.8)',
+                        color:'#3f3f3f',
+                        padding: [5, 8],    // [5, 10, 15, 20]
+                        textStyle : {
+                            color: '#3f3f3f',
+                            fontSize: 10,
+                        },
+                    },
+                    legend: {
+                        // data: ['价格']
+                    },
+                    grid: {
+                        top: '20%',
+                        left: '4%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true,
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap : false,
+                        data: dateList,
+                        splitLine:{
+                            show: true, // 网格线
+                            lineStyle: {
+                                color: '#cfcfcf'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                type: 'solid',
+                                color: '#404040',//左边线的颜色
+                                width:'1'//坐标线的宽度
+                            }
+                        },
+                        axisLabel: {        
+                            show: true,
+                            // interval: parseInt((data.length)/6),
+                            textStyle: {
+                                fontSize:'12',
+                            }
+                        },
+                    },
+                    yAxis: [{
+                        type : 'value',
+                        splitLine:{
+                            show: true, // 网格线
+                            lineStyle: {
+                                color: '#cfcfcf'
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                type: 'solid',
+                                color: '#404040',//左边线的颜色
+                                width:'1'//坐标线的宽度
+                            },
+                            axisLabel: {        
+                                show: true,
+                                textStyle: {
+                                    fontSize:'16',
+                                }
+                            },
+                        }
+                    }],
+                    series: [
+                        {
+                            name:'价格',
+                            type:'line',
+                            // step: 'start',
+                            data: valueList,
+                            showSymbol: false,
+                            itemStyle:{ 
+                                normal:{
+                                    color:'#ff4600',
+                                }, // 折现颜色
+                            },
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                $('.chart-bod').show()
+                $('.chart-loading').hide()
+            }
+        })
+        
+    </script>
+</body>
+</html>

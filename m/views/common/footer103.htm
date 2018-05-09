@@ -1,0 +1,56 @@
+<!-- 返回顶部 -->
+<div class="back-top" id="j-backtop"></div>
+<footer>
+    Copyright 2017-2018 yjyapp.com，All right reserved.
+</footer>
+</body>
+<script src="<{$GLOBALS['static_path']}>h5/v103/js/page.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="<{$GLOBALS['static_path']}>h5/v103/js/lib/swiper-3.4.2.min.js"></script>
+<{if isset($GLOBALS['TOP_SHOW']) &&  $GLOBALS['TOP_SHOW'] == 'index' }>
+    <script>
+        common.index();
+<{else}>
+    <script>
+        common.init();
+<{/if}>
+
+    wx.config({
+        debug: false,//这里是开启测试，如果设置为true，则打开每个步骤，都会有提示，是否成功或者失败
+        appId: "<{$GLOBALS['jsApi']['APPID'] }>",
+        timestamp: "<{$GLOBALS['jsApi']['timestamp'] }>",//这个一定要与上面的php代码里的一样。
+        nonceStr: "<{$GLOBALS['jsApi']['noncestr'] }>",//这个一定要与上面的php代码里的一样。
+        signature: "<{$GLOBALS['jsApi']['signature'] }>",
+        jsApiList: [
+            // 所有要调用的 API 都要加到这个列表中
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+        ]
+    });
+    wx.ready(function(){
+        var title = "<{$GLOBALS['OfficialAccounts']['share']['title'] }>",   // 分享标题
+            desc = "<{$GLOBALS['OfficialAccounts']['share']['desc'] }>",   //分享描述
+            imgUrl = "<{$GLOBALS['OfficialAccounts']['share']['imgUrl'] }>"; // 分享图标
+
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            success: function () {},
+            cancel: function () {}
+        });
+
+        //发送给好友
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            imgUrl: imgUrl, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {},
+            cancel: function () {}
+        });
+    });
+</script>
+<{$GLOBALS['statisticalCode']}>
+</html>

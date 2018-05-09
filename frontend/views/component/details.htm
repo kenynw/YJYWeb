@@ -1,0 +1,85 @@
+<{include file='common/header.htm'}>
+<{include file='common/header_bar.htm'}>
+<link rel="stylesheet" href="<{$GLOBALS['static_path']}>pc/css/element.css">
+
+<!-- 面包屑 -->
+<div class="crumbs">
+    <div class="main">
+        <a href="/">首页</a><span class="gt">&gt;</span><a href="<{Yii::$app->urlManager->createUrl('product/index')}>">产品库</a>
+        <span class="gt">&gt;</span><{if isset($smarty.get.product_id)}><a href="<{Yii::$app->urlManager->createUrl(['product/details','id'=>$smarty.get.product_id ])}>">产品详情</a><span class="gt">&gt;</span><{/if}><span>成份解读</span>
+    </div>
+</div>
+<!-- 主要内容 -->
+<div class="element-box">
+    <div class="main clearfix">
+        <div class="element-left">
+            <div class="element-main">
+                <h1><{$details['name']}>作用</h1>
+                <p><span>英文名：</span><{$details['ename']}></p>
+                <p><span>成分别名：</span><{$details['alias']}></p>
+                <p><span>使用目的：</span><{str_replace("，"," ",$details['component_action'])}></p>
+                <p><span>安全风险：</span><{$details['risk_grade']}></p>
+                <p><span>是否致痘：</span><{if $details['is_pox'] eq '1'}>是<{else}>否<{/if}></p>
+                <p><span>有无活性：</span><{if $details['is_active'] eq '1'}>有<{else}>无<{/if}></p>
+            </div>
+            <!-- 成分简介 -->
+            <div class="element-jj">
+                <h2><{$details['name']}>有害吗？</h2>
+                <div class="con">
+                    <p><{$details['description']}></p>
+                </div>
+            </div>
+            <!-- 含有此成分的产品 -->
+            <div class="contain-pro brand-product" id="product-list">
+                <h2>含有<{$details['name']}>的护肤品</h2>
+                <div class="pro-box">
+                    <ul class="clearfix">
+                        <{if $productList['list']}>
+                            <!--产品列表-->
+                            <{include file='../common/product_list.htm' list = $productList['list'] type = 'details'}>
+                        <{/if}>
+                    </ul>
+                </div>
+            </div>
+            <!-- 分页 -->
+            <div class="pages-item">
+                <ul class="pagination">
+
+                    <{if $productList['pageCount'] > 1 }>
+                        <li class="prev disabled"><a href="<{if $productList['page']-1 != 0}><{Yii::$app->urlManager->createUrl(['component/details','id'=>$smarty.get.id,'page'=>$productList['page']-1,'#' =>'product-list'])}><{else}>javascript:void(0)<{/if}>">上一页</a></li>
+                        <{for $foo=$productList['min_page'] to $productList['max_page'] }>
+                            <li class="<{if $productList['page'] == $foo }>active<{/if}>"><a href="<{Yii::$app->urlManager->createUrl(['component/details','id'=>$smarty.get.id,'page'=>$foo,'#' =>'product-list' ])}>" target=""><{$foo}></a></li>
+                        <{/for}>
+                        <li class="next"><a href="<{if $productList['page']  < $productList['pageCount']}><{Yii::$app->urlManager->createUrl(['component/details','id'=>$smarty.get.id,'page'=>$productList['page']+1,'#' =>'product-list' ])}><{else}>javascript:void(0)<{/if}>">下一页</a></li>
+                    <{/if}>
+
+                </ul>
+            </div>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['main1'] class = "ad-mid-box" name = "main1"}>
+
+        </div>
+        <div class="element-right">
+            <!-- 类似成份 -->
+
+            <{if $compomentList }>
+            <div class="recommend-com-right recommend-ele-right">
+                <h2 class="hd icon-element-hd01">和<{$details['name']}>类似成分</h2>
+                <ul class="pro-list">
+                    <{foreach key=key from=$compomentList item=component }>
+                        <li>
+                            <a href="<{Yii::$app->urlManager->createUrl(['component/details','id'=>$component['id'] ])}>" title="" target="_blank" class="pro-name ell"><i class="<{if $key ==9}>icon-element-num<{$key+1}><{else if $key==3 || $key ==4}>icon-num-<{$key+1}><{else}>icon-element-num0<{$key+1}><{/if}>"></i><{$component['name']}></a>
+                        </li>
+                    <{/foreach}>
+                </ul>
+            </div>
+            <{/if}>
+
+            <!--广告-->
+            <{include file='../common/advertisement.htm' list = $advertisementList['left1'] class = "recommend-ad" name = "left1"}>
+        </div>
+    </div>
+</div>
+
+<{include file='common/footer.htm'}>

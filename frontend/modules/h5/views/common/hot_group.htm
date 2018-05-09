@@ -1,0 +1,19 @@
+            <section class="item-box community-box">
+                <h3>最热圈子</h3>
+                <div class="swiper-container hot-community">
+                    <div class="swiper-wrapper">
+                        <!--<{foreach key=key from=$hotGroup item=group }>-->
+                            <div class="swiper-slide">
+                                <a  href="/group/detail?id=<{$group['id']}>">
+                                    <img src="<{$group['picture']}>" title="" alt="">
+                                    <div class="slide-info">
+                                        <p class="title"><{$group['name']}></p>
+                                        <p class="txt"><{$group['user_num']}>个他</p>
+                                    </div>
+                                    <span class="enter-btn">进入</span>
+                                </a>
+                            </div>
+                        <!--<{/foreach}>-->
+                    </div>
+                </div>
+            </section>

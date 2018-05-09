@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title><{$huoDongdInfo['name']}></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="MobileOptimized" content="320">
+    <meta  name="applicable-device" content="mobile">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <!-- DNS预解析 常用于图片URL 静态资源URL -->
+    <link rel="dns-prefetch" href="//">
+    <link rel="stylesheet" type="text/css" href="<{$static_path}>css/style.min.css">
+</head>
+<body>
+<div class="top-bar">
+   <span class="txt">已有<i><{$playedNum}></i>人参与活动</span>
+   <a href="javascript:void(0)" class="rule-btn rule-toggle">查看规则</a>
+</div>
+<div class="page-tit"></div>
+<div class="prize-box">
+    <div class="prize-bg animated bounceIn"></div>
+    <div class="prize animated lightSpeedIn"></div>
+</div>
+<div class="get-info">
+       <a href="javascript:void(0)" class="get-btn scale" id="get_prize">免费领取</a>
+       <p>已有<i><{$drawNum}></i>人获得奖品，快快来参加</p>
+</div>
+<p class="footer">本活动所有解释权归颜究院所有</p>
+<!-- 活动规则 -->
+<div class="rulebox-dia">
+    <span class="close rule-toggle"></span>
+    <div class="tab">
+        <span class="active">活动规则</span>
+        <span>奖励说明</span>
+    </div>
+    <div class="tab-con active">
+        1.一个用户（收货地址&手机号）限领一份奖品<br>
+        2.活动按期进行，本期<span>限量100个</span>。<br>
+        3.呼叫好友帮你助攻，直到助攻数达到100%，即可免费获取本期奖品，奖品有限，先到先得！<br>
+        4.活动时间：<span>2017.8.2-2017.8.8</span>（关注“护肤颜究院”提前预知下期活动时间哦）<br>
+        5.活动结束后统一发放奖品。请中奖者务必填写收货信息（即领奖登记），未填写者视为自动放弃。<br>
+        6.本活动所有解释权归颜究院所有。<br>
+    </div>
+    <div class="tab-con">
+        <p>
+            1.本期奖品为多芬洁面慕丝洗面奶，160mL<br>
+            2.限量100支，先到先得！<br>
+            <br>
+            ps：每期活动都会放出不同的礼品，蹲点or比手速，我们都不管，只要你先满足条件，即可免费领取N种美物哦。
+        </p>
+    </div>
+</div>
+<!-- 活动结束弹窗 -->
+<div class="dialog gameover-dia">
+    <i class="dia-icon"></i>
+    <h2>太晚了，活动已结束~</h2>
+    <p class="text">想知道下期活动时间与奖品<br>请关注颜究院微信公众号</p>
+    <img src="<{$static_path}>images/code.png" alt="" class="code">
+</div>
+<!-- 助力成功弹窗 -->
+<div class="guang zlsuc-dia">
+    <div class="dialog">
+        <i class="dia-icon"></i>
+        <h2>哇耶！助力成功啦！<br>没有你我可怎么办...</h2>
+        <a href="javascript:void(0);" class="btn">0元拿多芬洗面奶&nbsp;&gt;</a>
+   </div>
+</div>
+<!-- 更新版本弹窗 -->
+<div class="dialog version-dia">
+    <i class="dia-icon"></i>
+    <h2>最新的版本才支持此次活动哦~<br>赶紧去市场更新吧！</h2>
+    <a href="javascript:void(0);" class="btn" id="upd_version">我知道了</a>
+</div>
+<!-- 挤人弹窗 -->
+<div class="dialog jiren-dia">
+    <i class="dia-icon"></i>
+    <h2>你成功挤掉<i><{$playedNum}></i>人<br>获得了多芬洗面奶一支！</h2>
+    <a href="javascript:void(0);" class="btn">赶紧登记领奖</a>
+</div>
+<!-- 邀请不足弹窗 -->
+<div class="dialog invite-dia">
+    <i class="dia-icon"></i>
+    <span class="dia-close"></span>
+    <h2>呜呜，你还需邀请好友助攻哦</h2>
+    <div class="wxbtn">
+        <a href="javascript:void(0);" class="wx-hy" id="share_hy_1">微信好友</a>
+        <a href="javascript:void(0);" class="wx-pyq" id="share_pyq_1">微信朋友圈</a>
+    </div>
+</div>
+<!-- 未邀请提示弹窗 -->
+<div class="dialog invitel-dia">
+    <i class="dia-icon"></i>
+    <span class="dia-close"></span>
+    <h2>邀请链接已生成<br>赶快邀请好友助攻吧！</h2>
+    <div class="wxbtn">
+        <a href="javascript:void(0);" class="wx-hy" id="share_hy_2">微信好友</a>
+        <a href="javascript:void(0);" class="wx-pyq" id="share_pyq_2">微信朋友圈</a>
+    </div>
+</div>
+<!-- 领奖信息提交成功 -->
+<div class="getinfosud-dia">
+    <span class="dia-close"></span>
+    <h2>提交成功</h2>
+    <p>
+        温馨提示：<br>
+        奖品将在活动结束后5个工作日寄出，获奖名单以颜究院公众号发放为准，<br>
+        请关注：<span>护肤颜究院</span>
+    </p>
+</div>
+<!-- 填写领奖信息 -->
+<div class="writeinfo-dia">
+    <h2>填写领奖信息</h2>
+    <p class="ts">请登记你的收件信息，以保证奖品的正常发放</p>
+    <p class="tit">领奖人姓名：</p>
+    <input type="text" name="" id="user_name">
+    <p class="tit">手机号：</p>
+    <input type="tel" name="" maxlength="11" id="user_phone">
+    <p class="tit">收件地址：</p>
+    <input type="text" name="" id="user_address">
+    <a href="javascript:void(0)" class="submit" id="info-submit">提交</a>
+</div>
+<!-- 遮罩 -->
+<div class="shade"></div>
+<div class="cover"></div>
+</body>
+<script src="<{$static_path}>/js/lib/jquery-1.10.1.min.js"></script>
+<script src="<{$static_path}>/js/pullnew.min.js?v=17"></script>
+<script type="text/javascript">
+    pull_new.is_login();
+    pull_new.index_init();
+</script>
+<{$statisticalCode}>
+</html>
+

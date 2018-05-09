@@ -1,0 +1,11 @@
+﻿{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "K3R5GQE438.com.miguan.MGYanJiuYuan",
+		        "paths": [ "/asa/*", "/unl/*"]
+            }
+        ]
+    }
+}

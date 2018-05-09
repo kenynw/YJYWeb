@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>测试进行中</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="MobileOptimized" content="320">
+        <meta  name="applicable-device" content="mobile">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <link rel="stylesheet" href="<{$GLOBALS['static_path']}>app/css/yjy.css">
+    </head>
+    <body style="background-color: #ffffff">
+        <div class="mod-during-test">
+            <div class="banner-box">
+                <img src="<{$GLOBALS['static_path']}>app/images/skin_test/<{$type}>.jpg" alt="" title="">
+            </div>
+            <div class="mod-question swiper-container">
+                <div class="swiper-wrapper">
+                    <!--<{foreach from=$answerList  key=key  item=question }>-->
+                    <div class="swiper-slide">
+                        <h3 class="question-title">Q<{$question['order']}>. <{$question['question']}></h3>
+                        <ul class="answer-box">
+                            <!--<{foreach from=$question['answer']  key=k  item=answer }>-->
+                            <li>
+                                <a href="javascript:;">
+                                    <{$answer['option']}>、<span data-kind="<{$answer['score']}>"><{$answer['content']}> </span>
+                                </a>
+                            </li>
+                            <!--<{/foreach}>-->
+                        </ul>
+                    </div>
+                    <!--<{/foreach}>-->
+                </div>
+            </div>
+            <div class="page-count">
+                <span class="page-num"><em class="cur-page">1</em>/<em class="full-page"><{$total}></em></span>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+        <div class="mod-test-result">
+            <div class="m-test-result">
+                <h3 class="sum-score">您的得分为：<span class="sum">22</span></h3>
+                <div class="process-box" data-maxsum="<{$max}>">
+                    <span class="process-item"><i></i></span>
+                    <span class="dry-tip"><{$left}></span>
+                    <span class="oiliness-tip"><{$right}></span>
+                </div>
+                <div class="tip-box">
+                    <ul>
+                        <!--<{foreach from=$skinInfo  key=key  item=skin }>-->
+                            <li><i class="score-item" data-item="<{$skin['max']}>"><{$skin['min']}>-<{$skin['max']}></i><{$skin['desc']}></li>
+                        <!--<{/foreach}>-->
+                    </ul>
+                </div>
+            </div>
+            <a href="#" class="tip-link" id="j-link">继续测试，可获得针对肤质的产品推荐 ></a>
+        </div>
+    </body>
+    <script src="<{$GLOBALS['static_path']}>app/js/yjy_base.min.js"></script>
+    <script>
+        var userID =<{$userId}>,type= '<{$type}>',from='<{$from}>', time=<{$time}>;
+        var url = '<{$GLOBALS['apiPathUrl']}>/api/index?callback=?';
+        var ua = navigator.userAgent.toLowerCase();
+        var ret = new Array();
+        function getAjax(_val) {
+            $.ajax({
+                url:url,
+                data:{action:"saveSkin",from:from,time:time,user_id:userID,type:type,value:_val},
+                dataType:'jsonp',
+                beforeSend : function(){
+                    $(".mod-test-result").hide();
+                },
+                success:function(res){
+                   if(res.status==1){
+                        ret= res.userSkin;
+                        if(res.isComplete == 1 && res.addMoney == 1){ 
+                            $("#j-link").text("已答完全部题目，请查看推荐 >");
+                            if (/iphone|ipad|ipod/.test(ua)) {
+                                window.webkit.messageHandlers.showToast.postMessage('测试完成，颜值+100分~');
+                            } else if (/android/.test(ua)) {
+                                window.android.showToast('测试完成，颜值+100分~');
+                            }
+                        }
+                        result_option.init();
+                   }else{
+                       alert(res.msg)
+                   }
+                }
+            });
+        }
+         /*客户端返回首页*/
+        $("#j-link").on("click",function () {
+            var ret_json = JSON.stringify(ret);
+            if (/iphone|ipad|ipod/.test(ua)) {
+                window.webkit.messageHandlers.ReturnsTheSkinTestHome.postMessage(ret_json);
+            } else if (/android/.test(ua)) {
+                window.android.toHome(ret_json);
+            }
+        })
+        </script>
+    <{$GLOBALS['statisticalCode']}>
+</html>
